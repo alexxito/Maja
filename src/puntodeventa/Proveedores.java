@@ -5,21 +5,39 @@
  */
 package puntodeventa;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import static puntodeventa.Principal.contenedor;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
- * @author Carmen
+ * @author Carmen, Se quitó email temporalmente, hasta modificación de la BD
  */
 public class Proveedores extends javax.swing.JPanel {
 
     /**
      * Creates new form Proveedores
      */
+    Calendario cal = new Calendario();
+    ProveedoresBD pb = new ProveedoresBD();
+
     public Proveedores() {
         initComponents();
+        pb.consultarProveedor(jTable1);
+        TelefonoProveedor.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                if (!Character.isDigit(e.getKeyChar()) || TelefonoProveedor.getText().length() > 10) {
+                    e.consume();
+                    getToolkit().beep();
+                }
+            }
+        });
+
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,11 +60,9 @@ public class Proveedores extends javax.swing.JPanel {
         apellidoM = new javax.swing.JLabel();
         ApellidoMaternoProveedor = new javax.swing.JTextField();
         tele = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        mf = new javax.swing.JComboBox<>();
         sexo = new javax.swing.JLabel();
         TelefonoProveedor = new javax.swing.JTextField();
-        email = new javax.swing.JLabel();
-        emailProveedor = new javax.swing.JTextField();
         fechaNac = new javax.swing.JLabel();
         fechaNacimientoProveedor = new javax.swing.JTextField();
         GuardarProveedor = new javax.swing.JButton();
@@ -116,12 +132,12 @@ public class Proveedores extends javax.swing.JPanel {
         tele.setForeground(new java.awt.Color(255, 255, 255));
         tele.setText("Telefono:");
 
-        jComboBox1.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "F", "M" }));
-        jComboBox1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        mf.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
+        mf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "F", "M" }));
+        mf.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        mf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                mfActionPerformed(evt);
             }
         });
 
@@ -130,12 +146,6 @@ public class Proveedores extends javax.swing.JPanel {
         sexo.setText("Sexo:");
 
         TelefonoProveedor.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
-
-        email.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
-        email.setForeground(new java.awt.Color(255, 255, 255));
-        email.setText("Em@il:");
-
-        emailProveedor.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
 
         fechaNac.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
         fechaNac.setForeground(new java.awt.Color(255, 255, 255));
@@ -164,44 +174,49 @@ public class Proveedores extends javax.swing.JPanel {
         jTable1.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Apellido Paterno", "Apellido Materno", "Sexo", "Telefono", "Email", "Fecha Nacimiento"
+                "Nombre", "Apellido Paterno", "Apellido Materno", "Sexo", "Telefono", "Fecha Nacimiento"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
         calendarioProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/calendario.png"))); // NOI18N
+        calendarioProveedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                calendarioProveedorMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -229,15 +244,11 @@ public class Proveedores extends javax.swing.JPanel {
                             .addComponent(apellidoM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tele, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(sexo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(email, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(fechaNac))
                         .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(emailProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(fechaNacimientoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(calendarioProveedor))))
+                        .addComponent(fechaNacimientoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(calendarioProveedor))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(addProveedor)
@@ -256,13 +267,13 @@ public class Proveedores extends javax.swing.JPanel {
                     .addComponent(nombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ApellidoPaternoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ApellidoMaternoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TelefonoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {ApellidoMaternoProveedor, ApellidoPaternoProveedor, TelefonoProveedor, emailProveedor, fechaNacimientoProveedor, nombreProveedor});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {ApellidoMaternoProveedor, ApellidoPaternoProveedor, TelefonoProveedor, fechaNacimientoProveedor, nombreProveedor});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,16 +312,12 @@ public class Proveedores extends javax.swing.JPanel {
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(mf, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(TelefonoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tele, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(emailProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19)
+                        .addGap(77, 77, 77)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(fechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fechaNacimientoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -318,10 +325,10 @@ public class Proveedores extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addProveedor)
                     .addComponent(editarProveedor))
-                .addGap(0, 115, Short.MAX_VALUE))
+                .addGap(0, 118, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {ApellidoMaternoProveedor, ApellidoPaternoProveedor, TelefonoProveedor, emailProveedor, fechaNacimientoProveedor, nombreProveedor});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {ApellidoMaternoProveedor, ApellidoPaternoProveedor, TelefonoProveedor, fechaNacimientoProveedor, nombreProveedor});
 
     }// </editor-fold>//GEN-END:initComponents
 
@@ -330,14 +337,14 @@ public class Proveedores extends javax.swing.JPanel {
     }//GEN-LAST:event_buscarActionPerformed
 
     private void buscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_buscarFocusGained
-        if (buscar.getText().equals("ßuscar....")){
+        if (buscar.getText().equals("ßuscar....")) {
             buscar.setText("");
         }
-        
+
     }//GEN-LAST:event_buscarFocusGained
 
     private void buscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_buscarFocusLost
-        if (buscar.getText().equals("")){
+        if (buscar.getText().equals("")) {
             buscar.setText("ßuscar....");
         }
     }//GEN-LAST:event_buscarFocusLost
@@ -346,28 +353,47 @@ public class Proveedores extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_addProveedorActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void mfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mfActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_mfActionPerformed
 
     private void GuardarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarProveedorActionPerformed
         int opc = JOptionPane.showConfirmDialog(this, "¿Desea guardar todos los cambios?");
         if (opc == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(this,"Cambios guardados con éxito.");
-        }else{
-            
+            pb.setNombre(nombreProveedor.getText());
+            pb.setApellido_p(ApellidoPaternoProveedor.getText());
+            pb.setApellido_m(ApellidoMaternoProveedor.getText());
+            pb.setTelefono(TelefonoProveedor.getText());
+            pb.setFecha(fechaNacimientoProveedor.getText());
+            pb.setSexo(mf.getSelectedItem().toString().charAt(0));
+            pb.agregarProveedor();
+            nombreProveedor.setText("");
+            ApellidoPaternoProveedor.setText("");
+            ApellidoMaternoProveedor.setText("");
+            TelefonoProveedor.setText("");
+            fechaNacimientoProveedor.setText("");
+            JOptionPane.showMessageDialog(this, "Cambios guardados con éxito.");
+            pb.consultarProveedor(jTable1);
+        } else {
+
         }
     }//GEN-LAST:event_GuardarProveedorActionPerformed
 
     private void eliminarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarProveedorActionPerformed
         int opc = JOptionPane.showConfirmDialog(this, "¿Desea eliminar al proveedor?");
         if (opc == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(this,"Proveedor borrado con éxito.");
-        }else{
-            
+            JOptionPane.showMessageDialog(this, "Proveedor borrado con éxito.");
+        } else {
+
         }
     }//GEN-LAST:event_eliminarProveedorActionPerformed
-   
+
+    private void calendarioProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calendarioProveedorMouseClicked
+        // TODO add your handling code here:
+        cal.setVisible(true);
+
+    }//GEN-LAST:event_calendarioProveedorMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ApellidoMaternoProveedor;
     private javax.swing.JTextField ApellidoPaternoProveedor;
@@ -380,15 +406,13 @@ public class Proveedores extends javax.swing.JPanel {
     private javax.swing.JLabel calendarioProveedor;
     private javax.swing.JButton editarProveedor;
     private javax.swing.JButton eliminarProveedor;
-    private javax.swing.JLabel email;
-    private javax.swing.JTextField emailProveedor;
     private javax.swing.JLabel etqnombre;
     private javax.swing.JLabel fechaNac;
     private javax.swing.JTextField fechaNacimientoProveedor;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lupa;
+    private javax.swing.JComboBox<String> mf;
     private javax.swing.JTextField nombreProveedor;
     private javax.swing.JLabel sexo;
     private javax.swing.JLabel tele;

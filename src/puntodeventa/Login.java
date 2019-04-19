@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,7 +22,9 @@ public class Login extends javax.swing.JFrame {
      */
     Crypt cry = new Crypt();
     private char[] pass;
-
+    LoginBD lbd = new LoginBD();
+    boolean existe;
+    Principal pl = new Principal();
     public Login() {
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -213,11 +216,15 @@ public class Login extends javax.swing.JFrame {
 
     private void botonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarActionPerformed
         // TODO add your handling code here:
-
         pass = campoPassword.getPassword();
-        String password = pass.toString();
         try {
-            cry.cifra(password);
+            existe = lbd.existeUsuario(campoNombre.getText(),cry.cifra(pass.toString()).toString());
+            if (existe) {
+                pl.setVisible(true);
+                setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error", "Usuario no existe", JOptionPane.ERROR);
+            }
         } catch (Exception ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }

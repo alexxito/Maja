@@ -21,7 +21,6 @@ import javax.swing.table.DefaultTableModel;
 public class Usuarios extends javax.swing.JPanel {
     //public static Connection con = new Conexion().conexionbd();
    
-
     /** 
      * Creates new form Usuarios
      */
@@ -88,22 +87,6 @@ public class Usuarios extends javax.swing.JPanel {
         jTextField7 = new javax.swing.JTextField();
         jTextField8 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jTextField9 = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jBtNU1 = new javax.swing.JButton();
-        jBtEdt1 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
@@ -289,14 +272,26 @@ public class Usuarios extends javax.swing.JPanel {
 
         jTFApePat.setEditable(false);
         jTFApePat.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
+        jTFApePat.setEnabled(false);
         jTFApePat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTFApePatActionPerformed(evt);
             }
         });
+        jTFApePat.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTFApePatKeyTyped(evt);
+            }
+        });
 
         jTFApeMat.setEditable(false);
         jTFApeMat.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
+        jTFApeMat.setEnabled(false);
+        jTFApeMat.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTFApeMatKeyTyped(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
         jButton1.setText("Contraseña");
@@ -319,6 +314,12 @@ public class Usuarios extends javax.swing.JPanel {
         jTFNomb.setEditable(false);
         jTFNomb.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
         jTFNomb.setText(" ");
+        jTFNomb.setEnabled(false);
+        jTFNomb.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTFNombKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -359,6 +360,7 @@ public class Usuarios extends javax.swing.JPanel {
 
         jComboBox1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Sexo-", "Mujer", "Hombre" }));
+        jComboBox1.setEnabled(false);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -367,6 +369,7 @@ public class Usuarios extends javax.swing.JPanel {
 
         jComboBox2.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Tipo-", "Empledo", "Administrador" }));
+        jComboBox2.setEnabled(false);
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
@@ -379,6 +382,12 @@ public class Usuarios extends javax.swing.JPanel {
 
         jTextField1.setEditable(false);
         jTextField1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
+        jTextField1.setEnabled(false);
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
         jLabel2.setText("Telefono");
@@ -386,20 +395,33 @@ public class Usuarios extends javax.swing.JPanel {
 
         jTextField2.setEditable(false);
         jTextField2.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
+        jTextField2.setEnabled(false);
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
             }
         });
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField2KeyTyped(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
         jLabel3.setText("Fecha de nacimiento");
+        jLabel3.setEnabled(false);
 
         jTextField3.setEditable(false);
         jTextField3.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
+        jTextField3.setEnabled(false);
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
+            }
+        });
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField3KeyTyped(evt);
             }
         });
 
@@ -480,6 +502,11 @@ public class Usuarios extends javax.swing.JPanel {
                 jTextField4ActionPerformed(evt);
             }
         });
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField4KeyTyped(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
         jLabel5.setText("Colonia");
@@ -491,6 +518,11 @@ public class Usuarios extends javax.swing.JPanel {
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField5ActionPerformed(evt);
+            }
+        });
+        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField5KeyTyped(evt);
             }
         });
 
@@ -505,6 +537,11 @@ public class Usuarios extends javax.swing.JPanel {
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField6ActionPerformed(evt);
+            }
+        });
+        jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField6KeyTyped(evt);
             }
         });
 
@@ -525,11 +562,21 @@ public class Usuarios extends javax.swing.JPanel {
                 jTextField7ActionPerformed(evt);
             }
         });
+        jTextField7.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField7KeyTyped(evt);
+            }
+        });
 
         jTextField8.setEditable(false);
         jTextField8.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
         jTextField8.setText(" ");
         jTextField8.setEnabled(false);
+        jTextField8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField8KeyTyped(evt);
+            }
+        });
 
         jLabel9.setText("___");
         jLabel9.setEnabled(false);
@@ -630,193 +677,6 @@ public class Usuarios extends javax.swing.JPanel {
         );
 
         jTabbedPane1.addTab("Usuario", jPanel2);
-
-        jPanel7.setBackground(new java.awt.Color(220, 234, 234));
-
-        jComboBox4.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-domicilio-", "id_001", "ied_2313", "id_13ref" }));
-        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox4ActionPerformed(evt);
-            }
-        });
-
-        jTextField9.setEditable(false);
-        jTextField9.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
-            }
-        });
-
-        jLabel11.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
-        jLabel11.setText("Colonia");
-
-        jTextField10.setEditable(false);
-        jTextField10.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
-        jTextField10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField10ActionPerformed(evt);
-            }
-        });
-
-        jLabel12.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
-        jLabel12.setText("Calle");
-
-        jLabel14.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
-        jLabel14.setText("Numero interior");
-
-        jLabel13.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
-        jLabel13.setText("Nomero exterior");
-
-        jTextField13.setEditable(false);
-        jTextField13.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
-        jTextField13.setText(" ");
-        jTextField13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField13ActionPerformed(evt);
-            }
-        });
-
-        jLabel15.setText("___");
-
-        jTextField12.setEditable(false);
-        jTextField12.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
-        jTextField12.setText(" ");
-
-        jTextField11.setEditable(false);
-        jTextField11.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
-        jTextField11.setText("  ");
-        jTextField11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField11ActionPerformed(evt);
-            }
-        });
-
-        jLabel10.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
-        jLabel10.setText("Ciudad");
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(13, 13, 13))
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(195, 195, 195)
-                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel14)
-                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15))
-                .addContainerGap(72, Short.MAX_VALUE))
-        );
-
-        jBtNU1.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
-        jBtNU1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/añadir.png"))); // NOI18N
-        jBtNU1.setText("Nuevo domicilio");
-        jBtNU1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBtNU1MouseClicked(evt);
-            }
-        });
-        jBtNU1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNU1ActionPerformed(evt);
-            }
-        });
-
-        jBtEdt1.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
-        jBtEdt1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/editar.png"))); // NOI18N
-        jBtEdt1.setText("Editar");
-        jBtEdt1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtEdt1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtNU1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtEdt1)
-                .addGap(68, 68, 68))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtNU1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtEdt1))
-                .addGap(34, 34, 34)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Domicilio", jPanel7);
 
         jPanel10.setBackground(new java.awt.Color(232, 242, 242));
 
@@ -1051,7 +911,7 @@ public class Usuarios extends javax.swing.JPanel {
     }
     //para el query
     public Connection connect() throws SQLException {
-        return DriverManager.getConnection("jdbc:postgresql://127.0.0.1:8088/maja","postgres", "123456");
+        return DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/maja","postgres", "sistemas");
     }
     //probar el query
     public int getActorCount() {
@@ -1092,7 +952,7 @@ public class Usuarios extends javax.swing.JPanel {
         }
 
     }
-    //Busuqeda especifica
+    //BConsulta id  especifica Usuarios
     public void conUsrI(String txt) {
         String SQL = "SELECT * FROM usuarios where id_usr ='"+txt+"'  ";
         //Arrays count = 0;
@@ -1109,9 +969,27 @@ public class Usuarios extends javax.swing.JPanel {
     }
     
     
+    public void conDomUsr(String txt) { 
+        String SQL = "SELECT * FROM domiciliousuarios where id_domusr ='"+txt+"'  ";
+        //Arrays count = 0;
+       // System.out.println(SQL);
+        try (Connection conn = connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(SQL)) {
+            // display actor information
+            displayUsuariosDom(rs);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+    }
+    
+    
+    
     //borrar ususarios
-    public void DelUsr(String txt){
-        String SQL= "Delete  FROM usuarios where ID_USR= '"+txt+"' ";
+    //En este caso antes de borrar el domicilio hay que borrar el ususario que lo esta utilizando
+    public void DelUsr(String txt){        
+       String SQL= "Delete  FROM usuarios where ID_USR= '"+txt+"' ";
         
         try (Connection conn = connect();
                 Statement stmt = conn.createStatement();
@@ -1120,9 +998,20 @@ public class Usuarios extends javax.swing.JPanel {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+                 
+        SQL= "Delete  FROM domiciliousuarios values where ID_DOMUSR= '"+txt+"' ";
+        //como uso la mismam isdpor ahoira si qlle dejo jajaj soy el rey de los parches Xd
+        try (Connection conn = connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(SQL)) {
+            // display actor information
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+                        
     }
     
-    //borrar ususarios
+    //actualixar ususarios
     public void updUsr(String txt){
         String SQL = "update usuarios set usr_nomb="
                 + "'"+jTFNomb.getText()+"', usr_appat="
@@ -1139,19 +1028,54 @@ public class Usuarios extends javax.swing.JPanel {
             System.out.println(ex.getMessage());
         }
     } 
+    
+    //actualizar dom
+    public void updDomUsr(String txt){
+        String SQL = "update domiciliousuarios set dm_ciudad="
+                + "'"+jTextField4.getText()+"' ,  dm_colonia="
+                + "'"+jTextField5.getText()+"' , dm_calle="
+                + "'"+jTextField6.getText()+"' , dm_noexxt="
+                + "'"+jTextField8.getText()+"' , dm_noint="
+                + "'"+jTextField7.getText()+"' where  id_domusr='"+txt+"'";
+        try (Connection conn = connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(SQL)) {
+            // display actor information
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
    
     
-    //Busuqeda especifica
+    //NUEVOI usuario
     public void newUsrI() {
+        //En este caso el usuarioo esta relacionado con un ide de domicilio asi que guardare el msimo por ahora
+        int id=(int)(Math.random()*50+5);
+        
+        newUsrDom(id);//Hola we te quiero ;)
+        //Este metodo es para crear el domicilio antes del ususario y le mando el random para que sea le mismo id
+        //Despues are que el metodo me retorne el id
+        char sex='?';
+        boolean tipo=false;
+        
+        if(jComboBox1.getSelectedIndex() == 1 )
+            sex='M';
+                    else if(jComboBox1.getSelectedIndex() == 2 )
+                        tipo=false;
+        
+        if(jComboBox1.getSelectedIndex() == 2 )
+                        tipo=true;
+        
+        
         String SQL = "insert into usuarios values ("
-                + "'"+(int)(Math.random()*50+5) +"' ,"
+                + "'"+id +"', '"+id+"'  ,"
                 + "'admin' , '"+ jTFNomb.getText()+"', "
                 + "'"+jTFApePat.getText() +"' , "
                 + "'"+jTFApeMat.getText() +"' , "
                 + "'"+ jTextField3.getText()+"' , "
-                + "'H' , '"+jTextField2.getText()+"' , "
+                + "'"+sex+"' , '"+jTextField2.getText()+"' , "
                 + "'"+ jTextField1.getText()+"', "
-                + "'false' )";
+                + "'"+tipo+"' )";
         
         //Arrays count = 0;
         System.out.println(SQL);
@@ -1164,6 +1088,29 @@ public class Usuarios extends javax.swing.JPanel {
             System.out.println(ex.getMessage());
         }
 
+    }
+    
+    //insertars domivciloiui
+    public void newUsrDom(int id) {
+         String SQL = "insert into domiciliousuarios values ("
+                + "'"+id +"',"
+                + "'"+jTextField4.getText()+"', "
+                + "'"+jTextField5.getText() +"' , "
+                + "'"+jTextField6.getText() +"' , "
+                + "'"+jTextField8.getText()+"' , "
+                + "'"+jTextField7.getText()+"'  )";
+        
+        //Arrays count = 0;
+        System.out.println(SQL);
+        try (Connection conn = connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(SQL)) {
+            // display actor information
+           // displayUsuarios2(rs);
+                } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    
     }
     
     
@@ -1194,33 +1141,15 @@ public class Usuarios extends javax.swing.JPanel {
     
     private void jBtNUMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtNUMouseClicked
         save=false;
+        setEditTFUsr(true);
+        cleanTFUsr();
+        jTextField1.setEnabled(true);
         jBtEdt.setEnabled(false);
         Usr_BtnElim2.setEnabled(false);
         Usr_BtnGuar2.setEnabled(true);
-        jTFNomb.setText("");
-        jTFNomb.setEditable(true);
-        jTFApePat.setText("");
-        jTFApePat.setEditable(true);
-        jTFApeMat.setText("");
-        jTFApeMat.setEditable(true);
-        jTextField2.setText("");
-        jTextField2.setEditable(true);
-        jTextField1.setText("");
-        jTextField1.setEditable(true);
-        jTextField3.setText("");
-        jTextField3.setEditable(true);
-        jTextField4.setText("");
-        jTextField4.setEditable(true);
-        jTextField5.setText("");
-        jTextField5.setEditable(true);
-        jTextField6.setText("");
-        jTextField6.setEditable(true);
-        jTextField7.setText("");
-        jTextField7.setEditable(true);
-        jTextField8.setText("");
-        jTextField8.setEditable(true);
-        jComboBox1.setEnabled(true);
-        jComboBox2.setEnabled(true);
+        
+        setEnaTFUsr(true);
+        //datos de domicilio
         jComboBox2.setSelectedIndex(0);
         jComboBox1.setSelectedIndex(0);
         
@@ -1233,13 +1162,10 @@ public class Usuarios extends javax.swing.JPanel {
 
     private void jBtEdtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtEdtMouseClicked
         //editar
-        save=true;
-        jTFNomb.setEditable(true);
-        jTFApePat.setEditable(true);
-        jTFApeMat.setEditable(true);
         Usr_BtnGuar2.setEnabled(true);
-        jTextField2.setEditable(true);
-        jTextField1.setEditable(true);
+        save=true;
+        setEnaTFUsr(true);
+        setEditTFUsr(true);
     }//GEN-LAST:event_jBtEdtMouseClicked
 
     private void jBtEdtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEdtActionPerformed
@@ -1287,34 +1213,6 @@ public class Usuarios extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField7ActionPerformed
 
-    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox4ActionPerformed
-
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
-
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
-
-    private void jTextField13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField13ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField13ActionPerformed
-
-    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField11ActionPerformed
-
-    private void jBtNU1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNU1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtNU1ActionPerformed
-
-    private void jBtEdt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEdt1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtEdt1ActionPerformed
-
     private void jBtNU2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtNU2MouseClicked
 
     }//GEN-LAST:event_jBtNU2MouseClicked
@@ -1336,21 +1234,22 @@ public class Usuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void Usr_BtnGuar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Usr_BtnGuar2MouseClicked
-         
-        int res= JOptionPane.showConfirmDialog(null,"Continuar Guardando usuario: ");
-            if(res==1)
-            {
-                System.out.println("Secancelo");
-            }
-            else{
-                
-                if(save){
-                    updUsr(getIdSelected());
-                }else{
-                    newUsrI();
+        if(Usr_BtnGuar2.isEnabled() ){
+            int res= JOptionPane.showConfirmDialog(null,"Continuar Guardando usuario: ");
+                if(res==1)
+                {
+                    System.out.println("Secancelo");
                 }
-            }
-   
+                else{
+                    
+                    if(save){                        
+                        updUsr(getIdSelected());
+                        updDomUsr(getIdSelected());
+                    }else{
+                        newUsrI();
+                    }
+                }
+        }
     }//GEN-LAST:event_Usr_BtnGuar2MouseClicked
 
     private void Usr_BtnGuar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Usr_BtnGuar2ActionPerformed
@@ -1360,19 +1259,6 @@ public class Usuarios extends javax.swing.JPanel {
     private void Usr_BtnElim2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Usr_BtnElim2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Usr_BtnElim2ActionPerformed
-
-    private void jBtNU1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtNU1MouseClicked
-        jTextField11.setEditable(true);
-        jTextField11.setText("");
-        jTextField12.setEditable(true);
-        jTextField12.setText("");
-        jTextField9.setEditable(true);
-        jTextField9.setText("");
-        jTextField10.setEditable(true);
-        jTextField10.setText("");
-        jTextField13.setEditable(true); 
-        jTextField13.setText("");// TODO add your handling code here:
-    }//GEN-LAST:event_jBtNU1MouseClicked
 
     private void textField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textField1ActionPerformed
         // TODO add your handling code here:
@@ -1390,6 +1276,7 @@ public class Usuarios extends javax.swing.JPanel {
 
     private void textField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textField1MouseClicked
         textField1.setText("");
+        setEditTFUsr(false);
         textField1.setBackground(new Color( 255,255,255 ));
                 // TODO add your handling code here:
     }//GEN-LAST:event_textField1MouseClicked
@@ -1400,26 +1287,24 @@ public class Usuarios extends javax.swing.JPanel {
             int res= JOptionPane.showConfirmDialog(null,"Continuar eliminando usuario: "+getIdSelected() );
             if(res==1)
                 System.out.println( "Se cancelo XD") ;
-            else
+            else{
                 DelUsr(getIdSelected() );
+                 cleanTFUsr();
+            }
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_Usr_BtnElim2MouseClicked
 
     private void Usr_TBusr2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Usr_TBusr2MouseClicked
+        textField1.setText("Buscar");
         save=true;
+        Usr_BtnGuar2.setEnabled(false);
+        setEditTFUsr(false);
         jComboBox1.setEnabled(false);
         jComboBox2.setEnabled(false);
-        jTFNomb.setEditable(false);
-        jTFApePat.setEditable(false);
-        jTFApeMat.setEditable(false);
-        jTextField3.setEditable(false);
         jBtEdt.setEnabled(true);
-        jTextField2.setEditable(false);
-        jTextField1.setEditable(false);
-        jComboBox1.setEditable(false);
-        jComboBox2.setEditable(false);
         conUsrI( getIdSelected() );
+        conDomUsr( getIdSelected() );
        // System.out.println("lA SELECIONADA ES"+whichIsselected()+" _ ");
         Usr_BtnElim2.setEnabled(true);        // TODO add your handling code here:
     }//GEN-LAST:event_Usr_TBusr2MouseClicked
@@ -1436,16 +1321,69 @@ public class Usuarios extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_Usr_TBusr2MouseEntered
 
+    private void jTFNombKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFNombKeyTyped
+        //Asi se hace la validacion
+        //jTFNomb.
+        new TextFieldEvent().nameKeyPress(evt, jTFNomb,10 );
+        new TextFieldEvent().text_numKeyPress(evt, jTFNomb,10);
+    }//GEN-LAST:event_jTFNombKeyTyped
+
+    private void jTFApePatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFApePatKeyTyped
+        new TextFieldEvent().nameKeyPress(evt, jTFApePat,14);
+        new TextFieldEvent().text_numKeyPress(evt, jTFApePat,14);
+    }//GEN-LAST:event_jTFApePatKeyTyped
+
+    private void jTFApeMatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFApeMatKeyTyped
+        new TextFieldEvent().nameKeyPress(evt, jTFApeMat,14);
+        new TextFieldEvent().text_numKeyPress(evt, jTFApeMat,14);
+    }//GEN-LAST:event_jTFApeMatKeyTyped
+
+    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+        //new TextFieldEvent().text_numKeyPress(evt, jTextField2,12);
+        //Crear validacion especial
+    }//GEN-LAST:event_jTextField2KeyTyped
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+        //new TextFieldEvent().text_numKeyPress(evt, jTextField1,12);
+        //Crear validacion especial
+    }//GEN-LAST:event_jTextField1KeyTyped
+
+    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+       //new TextFieldEvent().text_numKeyPress(evt, jTextField3,9);
+       //crear validacion especial XD
+    }//GEN-LAST:event_jTextField3KeyTyped
+
+    private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
+        new TextFieldEvent().nameKeyPress(evt, jTextField4,12);
+        new TextFieldEvent().text_numKeyPress(evt, jTextField4,12);
+    }//GEN-LAST:event_jTextField4KeyTyped
+
+    private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
+        new TextFieldEvent().nameKeyPress(evt, jTextField5,12);
+        new TextFieldEvent().text_numKeyPress(evt, jTextField5,12);
+    }//GEN-LAST:event_jTextField5KeyTyped
+
+    private void jTextField6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyTyped
+        new TextFieldEvent().nameKeyPress(evt, jTextField6,12);
+        new TextFieldEvent().text_numKeyPress(evt, jTextField6,12);
+    }//GEN-LAST:event_jTextField6KeyTyped
+
+    private void jTextField8KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField8KeyTyped
+       new TextFieldEvent().text_numKeyPress(evt, jTextField8,5);
+    }//GEN-LAST:event_jTextField8KeyTyped
+
+    private void jTextField7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyTyped
+       new TextFieldEvent().text_numKeyPress(evt, jTextField7,5);
+    }//GEN-LAST:event_jTextField7KeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Usr_BtnElim2;
     private javax.swing.JButton Usr_BtnGuar2;
     private javax.swing.JTable Usr_TBusr2;
     private javax.swing.JButton jBtEdt;
-    private javax.swing.JButton jBtEdt1;
     private javax.swing.JButton jBtEdt2;
     private javax.swing.JButton jBtNU;
-    private javax.swing.JButton jBtNU1;
     private javax.swing.JButton jBtNU2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -1453,14 +1391,7 @@ public class Usuarios extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -1484,8 +1415,6 @@ public class Usuarios extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
@@ -1496,10 +1425,6 @@ public class Usuarios extends javax.swing.JPanel {
     private javax.swing.JTextField jTFNomb;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
@@ -1507,7 +1432,6 @@ public class Usuarios extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel lbApeMat;
     private javax.swing.JLabel lbApePat;
     private javax.swing.JLabel lbNom;
@@ -1515,6 +1439,49 @@ public class Usuarios extends javax.swing.JPanel {
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 
+    
+    public void setEditTFUsr(boolean x){
+        jTFNomb.setEditable(x);
+        jTFApePat.setEditable(x);
+        jTFApeMat.setEditable(x);
+        jTextField1.setEditable(x);
+        jTextField3.setEditable(x);
+        jTextField2.setEditable(x);
+        jTextField4.setEditable(x);
+        jTextField5.setEditable(x);
+        jTextField6.setEditable(x);
+        jTextField7.setEditable(x);
+        jTextField8.setEditable(x);        
+    }
+    
+    public void setEnaTFUsr(boolean x){
+        jTFNomb.setEnabled(x);
+        jTFApePat.setEnabled(x);
+        jTFApeMat.setEnabled(x);
+        jTextField1.setEnabled(x);
+        jTextField3.setEnabled(x);
+        jTextField2.setEnabled(x);
+        jTextField4.setEnabled(x);
+        jTextField5.setEnabled(x);
+        jTextField6.setEnabled(x);
+        jTextField7.setEnabled(x);
+        jTextField8.setEnabled(x);     
+    }
+    
+    public void cleanTFUsr(){
+        jTFNomb.setText("");
+        jTFApePat.setText("");
+        jTFApeMat.setText("");
+        jTextField3.setText("");
+        jTextField2.setText("");
+        jTextField4.setText("");
+        jTextField5.setText("");
+        jTextField6.setText("");
+        jTextField7.setText("");
+        jTextField8.setText(""); 
+        jTextField1.setText(""); 
+    }
+    
     private void displayUsuarios(ResultSet rs) throws SQLException {
         DefaultTableModel dtm = new DefaultTableModel(0, 4);
                     
@@ -1534,24 +1501,23 @@ public class Usuarios extends javax.swing.JPanel {
     }
     
     private void displayUsuarios2(ResultSet rs) throws SQLException {
-       
-
+    
         while (rs.next()) {   
             //System.out.println("Numero de cuentas :"+getActorCount());
             //String[] vec=new String[]{rs.getString(1), rs.getString(2), rs.getString(3)};
-            jTFNomb.setText(rs.getString(3));
-            jTFApePat.setText(rs.getString(4));
-            jTFApeMat.setText(rs.getString(5));
-            jTextField3.setText(rs.getString(6));
-            jTextField2.setText(rs.getString(8));
-            jTextField1.setText(rs.getString(9));
+            jTFNomb.setText(rs.getString(4));
+            jTFApePat.setText(rs.getString(5));
+            jTFApeMat.setText(rs.getString(6));
+            jTextField3.setText(rs.getString(7));
+            jTextField2.setText(rs.getString(9));
+            jTextField1.setText(rs.getString(10));
             
-            if((rs.getString(7)+"").equalsIgnoreCase("M"))
+            if((rs.getString(8)+"").equalsIgnoreCase("M"))
                 jComboBox1.setSelectedIndex(1);
             else
                 jComboBox1.setSelectedIndex(2);
             
-            if((rs.getString(10)+"").equals("f"))
+            if((rs.getString(11)+"").equals("f"))
                 jComboBox2.setSelectedIndex(1);
             else
                 jComboBox2.setSelectedIndex(2);
@@ -1560,9 +1526,18 @@ public class Usuarios extends javax.swing.JPanel {
             //Usr_TBusr2.setModel(dtm);}
            // System.out.println("Se ejecuto la actialisacion de las casillas"+rs.getString(10));
         }
-        
         //To
     }
     
-    
+    private void displayUsuariosDom(ResultSet rs) throws SQLException {
+        //aqui escribo la consulta en las respectivas cajas de texto
+        while (rs.next()) {   
+            jTextField4.setText(rs.getString(2));
+            jTextField5.setText(rs.getString(3));
+            jTextField6.setText(rs.getString(4));
+            jTextField8.setText(rs.getString(5));
+            jTextField7.setText(rs.getString(6));          
+        }
+       
+    }
 }

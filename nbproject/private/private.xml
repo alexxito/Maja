@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/PC/Documents/MAJA/src/puntodeventa/Crypt.java</file>
-            <file>file:/C:/Users/PC/Documents/MAJA/src/puntodeventa/Conexion.java</file>
-            <file>file:/C:/Users/PC/Documents/MAJA/src/puntodeventa/Usuarios.java</file>
-            <file>file:/C:/Users/PC/Documents/MAJA/src/puntodeventa/Login.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Maja/src/puntodeventa/Proveedores.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Maja/src/puntodeventa/Login.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Maja/src/puntodeventa/LoginBD.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Maja/src/puntodeventa/ProveedoresBD.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Maja/src/puntodeventa/Conexion.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Maja/src/puntodeventa/Usuarios.java</file>
         </group>
     </open-files>
 </project-private>
