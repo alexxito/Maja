@@ -25,6 +25,7 @@ public class Login extends javax.swing.JFrame {
     LoginBD lbd = new LoginBD();
     boolean existe;
     Principal pl = new Principal();
+
     public Login() {
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -114,7 +115,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/usuario.png"))); // NOI18N
 
-        cerrarLabel.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
+        cerrarLabel.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         cerrarLabel.setForeground(new java.awt.Color(255, 255, 255));
         cerrarLabel.setText("X");
         cerrarLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -216,9 +217,11 @@ public class Login extends javax.swing.JFrame {
 
     private void botonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarActionPerformed
         // TODO add your handling code here:
-        pass = campoPassword.getPassword();
         try {
-            existe = lbd.existeUsuario(campoNombre.getText(),cry.cifra(pass.toString()).toString());
+            pass = campoPassword.getPassword();
+            lbd.setNombre(campoNombre.getText());
+            lbd.setPassword(cry.cifra(pass.toString()).toString());
+            existe = lbd.existeUsuario();
             if (existe) {
                 pl.setVisible(true);
                 setVisible(false);

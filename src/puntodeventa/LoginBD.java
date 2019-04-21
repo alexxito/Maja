@@ -9,6 +9,7 @@ package puntodeventa;
  *
  * @author PC
  */
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,14 +18,36 @@ public class LoginBD {
 
     ResultSet resultado;
     Statement sql;
+    Connection con;
+    private String nombre;
 
-    public boolean existeUsuario(String nombre, String password) throws SQLException {
-        sql = Conexion.conexionbd().createStatement();
-        resultado = sql.executeQuery("select usr_nomb from usuarios where usr_nomb='" + nombre + "' and pass='" + password + "'");
-        if (resultado.getObject(1).equals("")) {
-            return false;
-        } else {
-            return true;
-        }
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    private String password;
+
+    public boolean existeUsuario() throws SQLException {
+        boolean existe;
+        con = Conexion.conexionbd();
+        sql = con.createStatement();
+        resultado = sql.executeQuery("SELECT id_usr from usuarios where usr_nomb like '" + this.getNombre() + "' and pass like '" + this.getPassword() + "'");
+        resultado.next();
+        existe = !resultado.getObject("id_usr").equals("");
+        resultado.close();
+        sql.close();
+        con.close();
+        return existe;
     }
 }

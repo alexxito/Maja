@@ -20,22 +20,24 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Usuarios extends javax.swing.JPanel {
     //public static Connection con = new Conexion().conexionbd();
-   
-    /** 
+
+    /**
      * Creates new form Usuarios
      */
     public Usuarios() {
-        
+
         initComponents();
         jComboBox1.setEnabled(false);
         jComboBox2.setEnabled(false);
-        
+
     }
-    public boolean save=false;
-    public void initComponents2(int i){
+    public boolean save = false;
+
+    public void initComponents2(int i) {
         //Usr_TBusr2 = new JTable( );
-        Usr_TBusr2.setEnabled(false); 
+        Usr_TBusr2.setEnabled(false);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -902,22 +904,24 @@ public class Usuarios extends javax.swing.JPanel {
                 .addGap(82, 82, 82))
         );
     }// </editor-fold>//GEN-END:initComponents
-    public static void QuerySet(String text){
+    public static void QuerySet(String text) {
         //QueryRunner qr = new QueryRunner();
     }
-    
-    public static String QueryGet(String text){
+
+    public static String QueryGet(String text) {
         return "";
     }
+
     //para el query
     public Connection connect() throws SQLException {
-        return DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/maja","postgres", "sistemas");
+        return DriverManager.getConnection("jdbc:postgresql://127.0.0.1:8088/maja", "postgres", "123456");
     }
+
     //probar el query
     public int getActorCount() {
         String SQL = "SELECT count(*) FROM usuarios";
         int count = 0;
- 
+
         try (Connection conn = connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
@@ -926,22 +930,21 @@ public class Usuarios extends javax.swing.JPanel {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
- 
+
         return count;
     }
-    
+
     //Busuqeda general
     public void conUsr(String txt) {
-         String SQL;
-        
-        if(txt.equals("") ||txt.equals("Buscar") ){
+        String SQL;
+
+        if (txt.equals("") || txt.equals("Buscar")) {
             SQL = "SELECT ID_Usr,Usr_nomb, Usr_appat,Usr_apmat FROM usuarios";
-        }else{
-        SQL= "SELECT ID_Usr,Usr_nomb, Usr_appat,Usr_apmat FROM usuarios where usr_nomb like '"+txt+"%'  OR ID_USR LIKE '"+txt+"%'";
+        } else {
+            SQL = "SELECT ID_Usr,Usr_nomb, Usr_appat,Usr_apmat FROM usuarios where usr_nomb like '" + txt + "%'  OR ID_USR LIKE '" + txt + "%'";
         }
-     
+
         //Arrays count = 0;
- 
         try (Connection conn = connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
@@ -952,11 +955,12 @@ public class Usuarios extends javax.swing.JPanel {
         }
 
     }
+
     //BConsulta id  especifica Usuarios
     public void conUsrI(String txt) {
-        String SQL = "SELECT * FROM usuarios where id_usr ='"+txt+"'  ";
+        String SQL = "SELECT * FROM usuarios where id_usr ='" + txt + "'  ";
         //Arrays count = 0;
-       // System.out.println(SQL);
+        // System.out.println(SQL);
         try (Connection conn = connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
@@ -967,12 +971,11 @@ public class Usuarios extends javax.swing.JPanel {
         }
 
     }
-    
-    
-    public void conDomUsr(String txt) { 
-        String SQL = "SELECT * FROM domiciliousuarios where id_domusr ='"+txt+"'  ";
+
+    public void conDomUsr(String txt) {
+        String SQL = "SELECT * FROM domiciliousuarios where id_domusr ='" + txt + "'  ";
         //Arrays count = 0;
-       // System.out.println(SQL);
+        // System.out.println(SQL);
         try (Connection conn = connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
@@ -981,16 +984,14 @@ public class Usuarios extends javax.swing.JPanel {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        
+
     }
-    
-    
-    
+
     //borrar ususarios
     //En este caso antes de borrar el domicilio hay que borrar el ususario que lo esta utilizando
-    public void DelUsr(String txt){        
-       String SQL= "Delete  FROM usuarios where ID_USR= '"+txt+"' ";
-        
+    public void DelUsr(String txt) {
+        String SQL = "Delete  FROM usuarios where ID_USR= '" + txt + "' ";
+
         try (Connection conn = connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
@@ -998,8 +999,8 @@ public class Usuarios extends javax.swing.JPanel {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-                 
-        SQL= "Delete  FROM domiciliousuarios values where ID_DOMUSR= '"+txt+"' ";
+
+        SQL = "Delete  FROM domiciliousuarios values where ID_DOMUSR= '" + txt + "' ";
         //como uso la mismam isdpor ahoira si qlle dejo jajaj soy el rey de los parches Xd
         try (Connection conn = connect();
                 Statement stmt = conn.createStatement();
@@ -1008,35 +1009,18 @@ public class Usuarios extends javax.swing.JPanel {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-                        
+
     }
-    
+
     //actualixar ususarios
-    public void updUsr(String txt){
+    public void updUsr(String txt) {
         String SQL = "update usuarios set usr_nomb="
-                + "'"+jTFNomb.getText()+"', usr_appat="
-                + "'"+jTFApePat.getText()+"' , usr_apmat="
-                + "'"+jTFApeMat.getText()+"' ,usr_tel= "
-                + "'"+jTextField2.getText()+"' , usr_email="
-                + "'"+jTextField1.getText()+"' "
-                + " where  id_usr='"+txt+"'";
-        try (Connection conn = connect();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(SQL)) {
-            // display actor information
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    } 
-    
-    //actualizar dom
-    public void updDomUsr(String txt){
-        String SQL = "update domiciliousuarios set dm_ciudad="
-                + "'"+jTextField4.getText()+"' ,  dm_colonia="
-                + "'"+jTextField5.getText()+"' , dm_calle="
-                + "'"+jTextField6.getText()+"' , dm_noexxt="
-                + "'"+jTextField8.getText()+"' , dm_noint="
-                + "'"+jTextField7.getText()+"' where  id_domusr='"+txt+"'";
+                + "'" + jTFNomb.getText() + "', usr_appat="
+                + "'" + jTFApePat.getText() + "' , usr_apmat="
+                + "'" + jTFApeMat.getText() + "' ,usr_tel= "
+                + "'" + jTextField2.getText() + "' , usr_email="
+                + "'" + jTextField1.getText() + "' "
+                + " where  id_usr='" + txt + "'";
         try (Connection conn = connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
@@ -1045,114 +1029,128 @@ public class Usuarios extends javax.swing.JPanel {
             System.out.println(ex.getMessage());
         }
     }
-   
-    
+
+    //actualizar dom
+    public void updDomUsr(String txt) {
+        String SQL = "update domiciliousuarios set dm_ciudad="
+                + "'" + jTextField4.getText() + "' ,  dm_colonia="
+                + "'" + jTextField5.getText() + "' , dm_calle="
+                + "'" + jTextField6.getText() + "' , dm_noexxt="
+                + "'" + jTextField8.getText() + "' , dm_noint="
+                + "'" + jTextField7.getText() + "' where  id_domusr='" + txt + "'";
+        try (Connection conn = connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(SQL)) {
+            // display actor information
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
     //NUEVOI usuario
     public void newUsrI() {
         //En este caso el usuarioo esta relacionado con un ide de domicilio asi que guardare el msimo por ahora
-        int id=(int)(Math.random()*50+5);
-        
+        int id = (int) (Math.random() * 50 + 5);
+
         newUsrDom(id);//Hola we te quiero ;)
         //Este metodo es para crear el domicilio antes del ususario y le mando el random para que sea le mismo id
         //Despues are que el metodo me retorne el id
-        char sex='?';
-        boolean tipo=false;
-        
-        if(jComboBox1.getSelectedIndex() == 1 )
-            sex='M';
-                    else if(jComboBox1.getSelectedIndex() == 2 )
-                        tipo=false;
-        
-        if(jComboBox1.getSelectedIndex() == 2 )
-                        tipo=true;
-        
-        
+        char sex = '?';
+        boolean tipo = false;
+
+        if (jComboBox1.getSelectedIndex() == 1) {
+            sex = 'M';
+        } else if (jComboBox1.getSelectedIndex() == 2) {
+            tipo = false;
+        }
+
+        if (jComboBox1.getSelectedIndex() == 2) {
+            tipo = true;
+        }
+
         String SQL = "insert into usuarios values ("
-                + "'"+id +"', '"+id+"'  ,"
-                + "'admin' , '"+ jTFNomb.getText()+"', "
-                + "'"+jTFApePat.getText() +"' , "
-                + "'"+jTFApeMat.getText() +"' , "
-                + "'"+ jTextField3.getText()+"' , "
-                + "'"+sex+"' , '"+jTextField2.getText()+"' , "
-                + "'"+ jTextField1.getText()+"', "
-                + "'"+tipo+"' )";
-        
+                + "'" + id + "', '" + id + "'  ,"
+                + "'admin' , '" + jTFNomb.getText() + "', "
+                + "'" + jTFApePat.getText() + "' , "
+                + "'" + jTFApeMat.getText() + "' , "
+                + "'" + jTextField3.getText() + "' , "
+                + "'" + sex + "' , '" + jTextField2.getText() + "' , "
+                + "'" + jTextField1.getText() + "', "
+                + "'" + tipo + "' )";
+
         //Arrays count = 0;
         System.out.println(SQL);
         try (Connection conn = connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
             // display actor information
-           // displayUsuarios2(rs);
-                } catch (SQLException ex) {
+            // displayUsuarios2(rs);
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
 
     }
-    
+
     //insertars domivciloiui
     public void newUsrDom(int id) {
-         String SQL = "insert into domiciliousuarios values ("
-                + "'"+id +"',"
-                + "'"+jTextField4.getText()+"', "
-                + "'"+jTextField5.getText() +"' , "
-                + "'"+jTextField6.getText() +"' , "
-                + "'"+jTextField8.getText()+"' , "
-                + "'"+jTextField7.getText()+"'  )";
-        
+        String SQL = "insert into domiciliousuarios values ("
+                + "'" + id + "',"
+                + "'" + jTextField4.getText() + "', "
+                + "'" + jTextField5.getText() + "' , "
+                + "'" + jTextField6.getText() + "' , "
+                + "'" + jTextField8.getText() + "' , "
+                + "'" + jTextField7.getText() + "'  )";
+
         //Arrays count = 0;
         System.out.println(SQL);
         try (Connection conn = connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(SQL)) {
             // display actor information
-           // displayUsuarios2(rs);
-                } catch (SQLException ex) {
+            // displayUsuarios2(rs);
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-    
+
     }
-    
-    
+
     //busca el renglon selecionado hay eror so
-    public int whichIsselected(){
-        int rows=Usr_TBusr2.getRowCount();
-        for(int i=0; i<rows;i++ ){
-            if(Usr_TBusr2.isRowSelected(i)){
+    public int whichIsselected() {
+        int rows = Usr_TBusr2.getRowCount();
+        for (int i = 0; i < rows; i++) {
+            if (Usr_TBusr2.isRowSelected(i)) {
                 return i;
             }
-            
-        }    
+
+        }
         return 1;
     }
-    
+
     //Devuelve la cadne de ide selecionada
-    
-    public String getIdSelected(){
+    public String getIdSelected() {
         Object id;
         int sel;
-        sel=whichIsselected();
-        id= Usr_TBusr2.getValueAt(sel,0);
+        sel = whichIsselected();
+        id = Usr_TBusr2.getValueAt(sel, 0);
         //System.out.println( id.toString()  );
         return id.toString();
     }
-    
-    
-    
+
+
     private void jBtNUMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtNUMouseClicked
-        save=false;
+        save = false;
         setEditTFUsr(true);
         cleanTFUsr();
         jTextField1.setEnabled(true);
         jBtEdt.setEnabled(false);
         Usr_BtnElim2.setEnabled(false);
         Usr_BtnGuar2.setEnabled(true);
-        
+
         setEnaTFUsr(true);
         //datos de domicilio
         jComboBox2.setSelectedIndex(0);
         jComboBox1.setSelectedIndex(0);
-        
+
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtNUMouseClicked
 
@@ -1163,7 +1161,7 @@ public class Usuarios extends javax.swing.JPanel {
     private void jBtEdtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtEdtMouseClicked
         //editar
         Usr_BtnGuar2.setEnabled(true);
-        save=true;
+        save = true;
         setEnaTFUsr(true);
         setEditTFUsr(true);
     }//GEN-LAST:event_jBtEdtMouseClicked
@@ -1234,21 +1232,19 @@ public class Usuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void Usr_BtnGuar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Usr_BtnGuar2MouseClicked
-        if(Usr_BtnGuar2.isEnabled() ){
-            int res= JOptionPane.showConfirmDialog(null,"Continuar Guardando usuario: ");
-                if(res==1)
-                {
-                    System.out.println("Secancelo");
+        if (Usr_BtnGuar2.isEnabled()) {
+            int res = JOptionPane.showConfirmDialog(null, "Continuar Guardando usuario: ");
+            if (res == 1) {
+                System.out.println("Se cancelo");
+            } else {
+
+                if (save) {
+                    updUsr(getIdSelected());
+                    updDomUsr(getIdSelected());
+                } else {
+                    newUsrI();
                 }
-                else{
-                    
-                    if(save){                        
-                        updUsr(getIdSelected());
-                        updDomUsr(getIdSelected());
-                    }else{
-                        newUsrI();
-                    }
-                }
+            }
         }
     }//GEN-LAST:event_Usr_BtnGuar2MouseClicked
 
@@ -1265,7 +1261,7 @@ public class Usuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_textField1ActionPerformed
 
     private void textField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textField1KeyPressed
-        conUsr(textField1.getText()  );
+        conUsr(textField1.getText());
         //Usr_TBusr2.getColumnModel().getColumn(4).setPreferredWidth(getActorCount());  
         /*DefaultTableModel dtm = new DefaultTableModel(0, 4);
         dtm.setColumnIdentifiers(new String[]{"aaa", "Taaaa", "Weddcccday"});
@@ -1277,19 +1273,19 @@ public class Usuarios extends javax.swing.JPanel {
     private void textField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textField1MouseClicked
         textField1.setText("");
         setEditTFUsr(false);
-        textField1.setBackground(new Color( 255,255,255 ));
-                // TODO add your handling code here:
+        textField1.setBackground(new Color(255, 255, 255));
+        // TODO add your handling code here:
     }//GEN-LAST:event_textField1MouseClicked
 
     private void Usr_BtnElim2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Usr_BtnElim2MouseClicked
-        if(Usr_BtnElim2.isEnabled()){
-            System.out.println( getIdSelected() ) ;
-            int res= JOptionPane.showConfirmDialog(null,"Continuar eliminando usuario: "+getIdSelected() );
-            if(res==1)
-                System.out.println( "Se cancelo XD") ;
-            else{
-                DelUsr(getIdSelected() );
-                 cleanTFUsr();
+        if (Usr_BtnElim2.isEnabled()) {
+            System.out.println(getIdSelected());
+            int res = JOptionPane.showConfirmDialog(null, "Continuar eliminando usuario: " + getIdSelected());
+            if (res == 1) {
+                System.out.println("Se cancelo XD");
+            } else {
+                DelUsr(getIdSelected());
+                cleanTFUsr();
             }
         }
         // TODO add your handling code here:
@@ -1297,15 +1293,15 @@ public class Usuarios extends javax.swing.JPanel {
 
     private void Usr_TBusr2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Usr_TBusr2MouseClicked
         textField1.setText("Buscar");
-        save=true;
+        save = true;
         Usr_BtnGuar2.setEnabled(false);
         setEditTFUsr(false);
         jComboBox1.setEnabled(false);
         jComboBox2.setEnabled(false);
         jBtEdt.setEnabled(true);
-        conUsrI( getIdSelected() );
-        conDomUsr( getIdSelected() );
-       // System.out.println("lA SELECIONADA ES"+whichIsselected()+" _ ");
+        conUsrI(getIdSelected());
+        conDomUsr(getIdSelected());
+        // System.out.println("lA SELECIONADA ES"+whichIsselected()+" _ ");
         Usr_BtnElim2.setEnabled(true);        // TODO add your handling code here:
     }//GEN-LAST:event_Usr_TBusr2MouseClicked
 
@@ -1324,18 +1320,18 @@ public class Usuarios extends javax.swing.JPanel {
     private void jTFNombKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFNombKeyTyped
         //Asi se hace la validacion
         //jTFNomb.
-        new TextFieldEvent().nameKeyPress(evt, jTFNomb,10 );
-        new TextFieldEvent().text_numKeyPress(evt, jTFNomb,10);
+        new TextFieldEvent().nameKeyPress(evt, jTFNomb, 10);
+        new TextFieldEvent().text_numKeyPress(evt, jTFNomb, 10);
     }//GEN-LAST:event_jTFNombKeyTyped
 
     private void jTFApePatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFApePatKeyTyped
-        new TextFieldEvent().nameKeyPress(evt, jTFApePat,14);
-        new TextFieldEvent().text_numKeyPress(evt, jTFApePat,14);
+        new TextFieldEvent().nameKeyPress(evt, jTFApePat, 14);
+        new TextFieldEvent().text_numKeyPress(evt, jTFApePat, 14);
     }//GEN-LAST:event_jTFApePatKeyTyped
 
     private void jTFApeMatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFApeMatKeyTyped
-        new TextFieldEvent().nameKeyPress(evt, jTFApeMat,14);
-        new TextFieldEvent().text_numKeyPress(evt, jTFApeMat,14);
+        new TextFieldEvent().nameKeyPress(evt, jTFApeMat, 14);
+        new TextFieldEvent().text_numKeyPress(evt, jTFApeMat, 14);
     }//GEN-LAST:event_jTFApeMatKeyTyped
 
     private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
@@ -1349,31 +1345,31 @@ public class Usuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1KeyTyped
 
     private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
-       //new TextFieldEvent().text_numKeyPress(evt, jTextField3,9);
-       //crear validacion especial XD
+        //new TextFieldEvent().text_numKeyPress(evt, jTextField3,9);
+        //crear validacion especial XD
     }//GEN-LAST:event_jTextField3KeyTyped
 
     private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
-        new TextFieldEvent().nameKeyPress(evt, jTextField4,12);
-        new TextFieldEvent().text_numKeyPress(evt, jTextField4,12);
+        new TextFieldEvent().nameKeyPress(evt, jTextField4, 12);
+        new TextFieldEvent().text_numKeyPress(evt, jTextField4, 12);
     }//GEN-LAST:event_jTextField4KeyTyped
 
     private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
-        new TextFieldEvent().nameKeyPress(evt, jTextField5,12);
-        new TextFieldEvent().text_numKeyPress(evt, jTextField5,12);
+        new TextFieldEvent().nameKeyPress(evt, jTextField5, 12);
+        new TextFieldEvent().text_numKeyPress(evt, jTextField5, 12);
     }//GEN-LAST:event_jTextField5KeyTyped
 
     private void jTextField6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyTyped
-        new TextFieldEvent().nameKeyPress(evt, jTextField6,12);
-        new TextFieldEvent().text_numKeyPress(evt, jTextField6,12);
+        new TextFieldEvent().nameKeyPress(evt, jTextField6, 12);
+        new TextFieldEvent().text_numKeyPress(evt, jTextField6, 12);
     }//GEN-LAST:event_jTextField6KeyTyped
 
     private void jTextField8KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField8KeyTyped
-       new TextFieldEvent().text_numKeyPress(evt, jTextField8,5);
+        new TextFieldEvent().text_numKeyPress(evt, jTextField8, 5);
     }//GEN-LAST:event_jTextField8KeyTyped
 
     private void jTextField7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyTyped
-       new TextFieldEvent().text_numKeyPress(evt, jTextField7,5);
+        new TextFieldEvent().text_numKeyPress(evt, jTextField7, 5);
     }//GEN-LAST:event_jTextField7KeyTyped
 
 
@@ -1439,8 +1435,7 @@ public class Usuarios extends javax.swing.JPanel {
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 
-    
-    public void setEditTFUsr(boolean x){
+    public void setEditTFUsr(boolean x) {
         jTFNomb.setEditable(x);
         jTFApePat.setEditable(x);
         jTFApeMat.setEditable(x);
@@ -1451,10 +1446,10 @@ public class Usuarios extends javax.swing.JPanel {
         jTextField5.setEditable(x);
         jTextField6.setEditable(x);
         jTextField7.setEditable(x);
-        jTextField8.setEditable(x);        
+        jTextField8.setEditable(x);
     }
-    
-    public void setEnaTFUsr(boolean x){
+
+    public void setEnaTFUsr(boolean x) {
         jTFNomb.setEnabled(x);
         jTFApePat.setEnabled(x);
         jTFApeMat.setEnabled(x);
@@ -1465,10 +1460,10 @@ public class Usuarios extends javax.swing.JPanel {
         jTextField5.setEnabled(x);
         jTextField6.setEnabled(x);
         jTextField7.setEnabled(x);
-        jTextField8.setEnabled(x);     
+        jTextField8.setEnabled(x);
     }
-    
-    public void cleanTFUsr(){
+
+    public void cleanTFUsr() {
         jTFNomb.setText("");
         jTFApePat.setText("");
         jTFApeMat.setText("");
@@ -1478,31 +1473,29 @@ public class Usuarios extends javax.swing.JPanel {
         jTextField5.setText("");
         jTextField6.setText("");
         jTextField7.setText("");
-        jTextField8.setText(""); 
-        jTextField1.setText(""); 
+        jTextField8.setText("");
+        jTextField1.setText("");
     }
-    
+
     private void displayUsuarios(ResultSet rs) throws SQLException {
         DefaultTableModel dtm = new DefaultTableModel(0, 4);
-                    
-        while (rs.next()) {   
+
+        while (rs.next()) {
             //System.out.println("Numero de cuentas :"+getActorCount());
-            String[] vec=new String[]{rs.getString(1), rs.getString(2), rs.getString(3)};
+            String[] vec = new String[]{rs.getString(1), rs.getString(2), rs.getString(3)};
             dtm.setColumnIdentifiers(new String[]{"ID", "Nombre/s", "Apellido Parterno"});
-          
-            dtm.addRow( vec);
-           Usr_TBusr2.setModel(dtm);
+
+            dtm.addRow(vec);
+            Usr_TBusr2.setModel(dtm);
             //Usr_TBusr2.setModel(dtm);}
         }
-        
-        
-        
+
         //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     private void displayUsuarios2(ResultSet rs) throws SQLException {
-    
-        while (rs.next()) {   
+
+        while (rs.next()) {
             //System.out.println("Numero de cuentas :"+getActorCount());
             //String[] vec=new String[]{rs.getString(1), rs.getString(2), rs.getString(3)};
             jTFNomb.setText(rs.getString(4));
@@ -1511,33 +1504,34 @@ public class Usuarios extends javax.swing.JPanel {
             jTextField3.setText(rs.getString(7));
             jTextField2.setText(rs.getString(9));
             jTextField1.setText(rs.getString(10));
-            
-            if((rs.getString(8)+"").equalsIgnoreCase("M"))
+
+            if ((rs.getString(8) + "").equalsIgnoreCase("M")) {
                 jComboBox1.setSelectedIndex(1);
-            else
+            } else {
                 jComboBox1.setSelectedIndex(2);
-            
-            if((rs.getString(11)+"").equals("f"))
+            }
+
+            if ((rs.getString(11) + "").equals("f")) {
                 jComboBox2.setSelectedIndex(1);
-            else
+            } else {
                 jComboBox2.setSelectedIndex(2);
-            
-            
+            }
+
             //Usr_TBusr2.setModel(dtm);}
-           // System.out.println("Se ejecuto la actialisacion de las casillas"+rs.getString(10));
+            // System.out.println("Se ejecuto la actialisacion de las casillas"+rs.getString(10));
         }
         //To
     }
-    
+
     private void displayUsuariosDom(ResultSet rs) throws SQLException {
         //aqui escribo la consulta en las respectivas cajas de texto
-        while (rs.next()) {   
+        while (rs.next()) {
             jTextField4.setText(rs.getString(2));
             jTextField5.setText(rs.getString(3));
             jTextField6.setText(rs.getString(4));
             jTextField8.setText(rs.getString(5));
-            jTextField7.setText(rs.getString(6));          
+            jTextField7.setText(rs.getString(6));
         }
-       
+
     }
 }

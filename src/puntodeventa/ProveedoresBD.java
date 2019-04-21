@@ -5,6 +5,7 @@
  */
 package puntodeventa;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,12 +23,21 @@ public class ProveedoresBD {
     private String apellido_p;
     private String apellido_m;
     private String telefono;
-    private String email;
     private String empresa;
+    private String descrip;
+
+    public String getDescrip() {
+        return descrip;
+    }
+
+    public void setDescrip(String descrip) {
+        this.descrip = descrip;
+    }
     private char sexo;
     private String fecha;
-    private ResultSet resultado;
-    private Statement sql;
+    ResultSet resultado;
+    Statement sql;
+    Connection con;
 
     public String getId_proveedor() {
         return id_proveedor;
@@ -69,14 +79,6 @@ public class ProveedoresBD {
         this.telefono = telefono;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getEmpresa() {
         return empresa;
     }
@@ -101,48 +103,47 @@ public class ProveedoresBD {
         this.fecha = fecha;
     }
 
-    public void agregarProveedor() {
-        try {
-            sql = Conexion.conexionbd().createStatement();
-            sql.executeQuery("insert into Proveedores values('" + (int) (Math.random() * 50 + 5) + "','" + this.getNombre() + "','" + this.getApellido_p() + "','" + this.getApellido_m() + "','" + this.getFecha() + "','" + this.getSexo() + "','" + this.getTelefono() + "')");
-        } catch (SQLException ex) {
-            ex.getMessage();
-        }
+    public void agregarProveedor() throws SQLException {
+        sql = Conexion.conexionbd().createStatement();
+        resultado = sql.executeQuery("select id_emp from empresas where emp_nomb like '" + this.getEmpresa() + "'");
+        resultado.next();
+        sql.executeUpdate("insert into Proveedores values('" + (int) (Math.random() * 50 + 5) + "','" + resultado.getObject("id_emp") + "','" + this.getNombre() + "','" + this.getApellido_p() + "','" + this.getApellido_m() + "','" + this.getFecha() + "','" + this.getSexo() + "','" + this.getTelefono() + "')");
     }
 
-    public void editarProveedor() {
-        try {
-            sql = Conexion.conexionbd().createStatement();
-            sql.executeUpdate("UPDATE Proveedores SET Prv_Nomb='" + this.getNombre() + "',Prv_ApPat='" + this.getApellido_p() + "',Prv_ApMat='" + this.getApellido_m() + "',Prv_BDate='" + this.getFecha() + "',Prv_Sex='" + this.getSexo() + "',Prv_Tel='" + this.getTelefono() + "' WHERE id_proveedor=" + id_proveedor);
-        } catch (SQLException ex) {
-            ex.getMessage();
-        }
+    public void editarProveedor() throws SQLException {
+        sql = Conexion.conexionbd().createStatement();
+        resultado = sql.executeQuery("select id_emp from empresas where emp_nomb like '" + this.getEmpresa() + "'");
+        sql.executeUpdate("update Proveedores set id_emp = '" + resultado.getObject("id_emp") + "', prv_nomb = '" + this.getNombre() + "', prv_appat = '" + this.getApellido_p() + "', prv_apmat = '" + this.getApellido_m() + "', prv_bdate = '" + this.getFecha() + "', prv_sex = '" + this.getSexo() + "', prv_tel = '" + this.getTelefono() + "' where id_prv like '" + this.getId_proveedor() + "'");
+        sql.close();
     }
 
-    public void eliminarProveedor() {
-        try {
-            sql = Conexion.conexionbd().createStatement();
-            sql.executeUpdate("DELETE FROM Proveedores WHERE id_proveedor=" + id_proveedor);
-        } catch (SQLException ex) {
-            ex.getMessage();
-        }
+    public void eliminarProveedor() throws SQLException {
+        con = Conexion.conexionbd();
+        con.setAutoCommit(false);
+        sql = con.createStatement();
+        sql.executeUpdate("DELETE FROM Proveedores WHERE id_prv like '" + this.getId_proveedor() + "'");
+        con.commit();
+        sql.close();
+        con.close();
     }
 
     public void consultarProveedor(JTable Tarb) {
         try {
             sql = Conexion.conexionbd().createStatement();
-            resultado = sql.executeQuery("select * from Proveedores");
+            resultado = sql.executeQuery("select id_prv,prv_nomb,prv_appat,prv_apmat,prv_sex,prv_tel,prv_bdate,emp_nomb from Proveedores, empresas where proveedores.id_emp = empresas.id_emp");
             DefaultTableModel dtm = new DefaultTableModel();
+            dtm.addColumn("ID");
             dtm.addColumn("Nombre");
             dtm.addColumn("Apellido Paterno ");
             dtm.addColumn("Apellido Materno");
             dtm.addColumn("Sexo");
             dtm.addColumn("Teléfono");
             dtm.addColumn("Fecha de Nacimiento");
+            dtm.addColumn("Empresa");
             Tarb.setModel(dtm);
             while (resultado.next()) {
-                Object vector[] = new Object[6];
-                for (int i = 1; i < vector.length; i++) {
+                Object vector[] = new Object[8];
+                for (int i = 0; i < vector.length; i++) {
                     vector[i] = resultado.getObject(i + 1);
                 }
                 dtm.addRow(vector);
@@ -150,5 +151,37 @@ public class ProveedoresBD {
         } catch (SQLException ex) {
             ex.getMessage();
         }
+    }
+
+    public void consultaIndvi(String cad, JTable table) throws SQLException {
+        sql = Conexion.conexionbd().createStatement();
+        resultado = sql.executeQuery("select id_prv,prv_nomb,prv_appat,prv_apmat,prv_sex,prv_tel,prv_bdate,emp_nomb from Proveedores,empresas where prv_nomb like '" + cad + "' and empresas.id_emp=proveedores.id_emp");
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("ID");
+        dtm.addColumn("Nombre");
+        dtm.addColumn("Apellido Paterno ");
+        dtm.addColumn("Apellido Materno");
+        dtm.addColumn("Sexo");
+        dtm.addColumn("Teléfono");
+        dtm.addColumn("Fecha de Nacimiento");
+        dtm.addColumn("Empresa");
+        table.setModel(dtm);
+        while (resultado.next()) {
+            Object vector[] = new Object[8];
+            for (int i = 0; i < vector.length; i++) {
+                vector[i] = resultado.getObject(i + 1);
+            }
+            dtm.addRow(vector);
+        }
+    }
+
+    public void agregarEmpresa() throws SQLException {
+        con = Conexion.conexionbd();
+        con.setAutoCommit(false);
+        sql = con.createStatement();
+        sql.execute("insert into Empresas values('"+(int)(Math.random()*50+5)+"' "+this.getEmpresa()+"' "+this.getDescrip()+"')");
+        con.commit();
+        sql.close();
+        con.close();
     }
 }
