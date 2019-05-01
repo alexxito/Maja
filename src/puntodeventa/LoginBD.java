@@ -20,6 +20,7 @@ public class LoginBD {
     Statement sql;
     Connection con;
     private String nombre;
+    private String password;
 
     public String getNombre() {
         return nombre;
@@ -36,18 +37,22 @@ public class LoginBD {
     public void setPassword(String password) {
         this.password = password;
     }
-    private String password;
 
-    public boolean existeUsuario() throws SQLException {
-        boolean existe;
-        con = Conexion.conexionbd();
-        sql = con.createStatement();
-        resultado = sql.executeQuery("SELECT id_usr from usuarios where usr_nomb like '" + this.getNombre() + "' and pass like '" + this.getPassword() + "'");
-        resultado.next();
-        existe = !resultado.getObject("id_usr").equals("");
-        resultado.close();
-        sql.close();
-        con.close();
-        return existe;
+    public boolean existeUsuario() {
+        boolean exite = false;
+        String SQL = "SELECT id_usr from usuarios where usr_nomb like '" + this.getNombre() + "' and pass like '" + this.getPassword() + "'";
+
+        try (Connection conn = Conexion.conexionbd();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(SQL)) {
+            while (rs.next()) {
+                exite = !(rs.getString("id_usr").equals(""));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return exite;
+
     }
 }

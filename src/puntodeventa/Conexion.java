@@ -4,6 +4,7 @@ package puntodeventa;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 /**
  *
  * @author PC
@@ -17,7 +18,7 @@ public class Conexion {
           con = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:8088/maja","postgres", "123456");
           System.out.println(con.isValid(3000) ? "Conexion correcta" : "Conexion fallida");
           
-        }catch(Exception e){
+        }catch(ClassNotFoundException | SQLException e){
             System.out.println("Error "+e.getMessage());
         }
         return con;

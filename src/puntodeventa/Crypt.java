@@ -10,6 +10,7 @@ package puntodeventa;
  * @author PC
  */
 import java.security.MessageDigest;
+import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -45,4 +46,13 @@ public class Crypt {
 
             return aes;
     }
+    
+    /*public static void main(String[] args) throws Exception{
+        Crypt cr = new Crypt();
+        
+        String pass="admin";
+        byte[] p = cr.cifra(pass);
+        String s = Base64.getEncoder().encodeToString(p);
+        System.out.println(s);
+    }*/
 }

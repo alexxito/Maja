@@ -7,6 +7,7 @@ package puntodeventa;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -21,10 +22,12 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     Crypt cry = new Crypt();
-    private char[] pass;
     LoginBD lbd = new LoginBD();
     boolean existe;
     Principal pl = new Principal();
+    String pass;
+    String passw;
+    byte[] cifer;
 
     public Login() {
         initComponents();
@@ -133,9 +136,6 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(LoginPanelLayout.createSequentialGroup()
                         .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(LoginPanelLayout.createSequentialGroup()
-                                .addGap(207, 207, 207)
-                                .addComponent(jLabel1))
-                            .addGroup(LoginPanelLayout.createSequentialGroup()
                                 .addGap(172, 172, 172)
                                 .addComponent(NameLabel))
                             .addGroup(LoginPanelLayout.createSequentialGroup()
@@ -163,6 +163,10 @@ public class Login extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cerrarLabel)))
                 .addContainerGap())
+            .addGroup(LoginPanelLayout.createSequentialGroup()
+                .addGap(207, 207, 207)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         LoginPanelLayout.setVerticalGroup(
             LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,15 +222,20 @@ public class Login extends javax.swing.JFrame {
     private void botonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarActionPerformed
         // TODO add your handling code here:
         try {
-            pass = campoPassword.getPassword();
+            pass = campoPassword.getText();
             lbd.setNombre(campoNombre.getText());
-            lbd.setPassword(cry.cifra(pass.toString()).toString());
+            cifer = cry.cifra(pass);
+            passw = Base64.getEncoder().encodeToString(cifer);
+            System.out.println(passw);
+            lbd.setPassword(passw);
             existe = lbd.existeUsuario();
             if (existe) {
                 pl.setVisible(true);
                 setVisible(false);
+                System.out.println("Contraseña bien");
             } else {
-                JOptionPane.showMessageDialog(null, "Error", "Usuario no existe", JOptionPane.ERROR);
+                System.out.println("Contraseña mal");
+                JOptionPane.showMessageDialog(null, "Usuario no existe", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);

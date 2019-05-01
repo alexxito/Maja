@@ -5,7 +5,6 @@
  */
 package puntodeventa;
 
-import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
@@ -13,28 +12,30 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Carmen, Se quitó email temporalmente, hasta modificación de la BD
+ * @author 
  */
 public class Proveedores extends javax.swing.JPanel {
 
     /**
      * Creates new form Proveedores
      */
-    Calendario cal = new Calendario();
-    ProveedoresBD pb = new ProveedoresBD();
-
+    Calendario cal = new Calendario(); //objeto de la clase Calendario
+    ProveedoresBD pb = new ProveedoresBD(); //objeto de la clase que contiene las funciones de agregar,editar,consultar y eliminar
+    
     public Proveedores() {
         initComponents();
         pb.consultarProveedor(jTable1);
         TelefonoProveedor.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyTyped(KeyEvent e) {
-                if (!Character.isDigit(e.getKeyChar()) || TelefonoProveedor.getText().length() > 10) {
-                    e.consume();
+                if (!Character.isDigit(e.getKeyChar()) || TelefonoProveedor.getText().length() > 10) { //Valida que solo se ingresen números y solo
+                    e.consume(); //10 caracteres
                     getToolkit().beep();
                 }
             }
         });
         fechaNacimientoProveedor.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyTyped(KeyEvent e) {
                 if (fechaNacimientoProveedor.getText().length() >= 10) {
                     e.consume();
@@ -490,7 +491,7 @@ public class Proveedores extends javax.swing.JPanel {
         pb.setFecha(fechaNacimientoProveedor.getText());
         pb.setSexo(mf.getSelectedItem().toString().charAt(0));
         try {
-            if (jTable1.getSelectedRow() == -1 & campoNomEmp.isEnabled()==false) {
+            if (jTable1.getSelectedRow() == -1 & campoNomEmp.isEnabled() == false) {
                 if (opc == JOptionPane.YES_OPTION) {
                     pb.agregarProveedor();
                     nombreProveedor.setText("");
@@ -533,6 +534,11 @@ public class Proveedores extends javax.swing.JPanel {
             }
         } catch (SQLException e) {
         }
+        campoNomEmp.setText("");
+        TelefonoProveedor.setText("");
+        ApellidoPaternoProveedor.setText("");
+        ApellidoMaternoProveedor.setText("");
+        fechaNacimientoProveedor.setText("");
     }//GEN-LAST:event_eliminarProveedorActionPerformed
 
     private void calendarioProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calendarioProveedorMouseClicked

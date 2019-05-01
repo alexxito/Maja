@@ -17,6 +17,8 @@ public class Respaldo extends javax.swing.JPanel {
     /**
      * Creates new form Respaldo
      */
+    RespaldoBD rbd = new RespaldoBD();
+
     public Respaldo() {
         initComponents();
     }
@@ -43,10 +45,12 @@ public class Respaldo extends javax.swing.JPanel {
         fondo = new javax.swing.JLabel();
         direccionTextField = new javax.swing.JTextField();
         examinarButton = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        nombreCampo = new javax.swing.JTextField();
         guardarButton = new javax.swing.JButton();
         restaurarButton = new javax.swing.JButton();
         titulo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -79,7 +83,7 @@ public class Respaldo extends javax.swing.JPanel {
             }
         });
 
-        examinarButton.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
+        examinarButton.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
         examinarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/respaldo2.png"))); // NOI18N
         examinarButton.setText("Examinar");
         examinarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -88,7 +92,7 @@ public class Respaldo extends javax.swing.JPanel {
             }
         });
 
-        jTextField1.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
+        nombreCampo.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
 
         guardarButton.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
         guardarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/guardar.png"))); // NOI18N
@@ -113,6 +117,14 @@ public class Respaldo extends javax.swing.JPanel {
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titulo.setText("Respaldo y Restauración");
 
+        jLabel1.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Ruta:");
+
+        jLabel2.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Nombre de archivo:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -130,10 +142,16 @@ public class Respaldo extends javax.swing.JPanel {
                 .addComponent(titulo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(direccionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 121, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(direccionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nombreCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(examinarButton)
                 .addGap(295, 295, 295))
@@ -144,17 +162,20 @@ public class Respaldo extends javax.swing.JPanel {
                 .addGap(66, 66, 66)
                 .addComponent(titulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(examinarButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(direccionTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(examinarButton)
+                    .addComponent(direccionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(39, 39, 39)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombreCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
+                        .addGap(109, 109, 109)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(guardarButton)
                             .addComponent(restaurarButton))))
@@ -168,23 +189,27 @@ public class Respaldo extends javax.swing.JPanel {
 
     private void examinarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_examinarButtonActionPerformed
         // TODO add your handling code here:
+        Arbolo ar = new Arbolo();
+        ar.setVisible(true);
     }//GEN-LAST:event_examinarButtonActionPerformed
 
     private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButtonActionPerformed
         int opc = JOptionPane.showConfirmDialog(this, "¿Desea crear un respaldo?");
         if (opc == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(this,"Respaldo creado con éxito.");
-        }else{
-            
+            rbd.ejecutarComando("maja", "123456", "backup", direccionTextField.getText(), nombreCampo.getText());
+            JOptionPane.showMessageDialog(this, "Respaldo creado con éxito.");
+        } else {
+
         }
     }//GEN-LAST:event_guardarButtonActionPerformed
 
     private void restaurarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurarButtonActionPerformed
         int opc = JOptionPane.showConfirmDialog(this, "¿Desea restaurar el respaldo seleccionado?");
         if (opc == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(this,"Restauración exitosa..");
-        }else{
-            
+            rbd.ejecutarComando("maja", "123456", "restore", direccionTextField.getText(), nombreCampo.getText());
+            JOptionPane.showMessageDialog(this, "Restauración exitosa..");
+        } else {
+
         }
     }//GEN-LAST:event_restaurarButtonActionPerformed
 
@@ -194,6 +219,8 @@ public class Respaldo extends javax.swing.JPanel {
     private javax.swing.JButton examinarButton;
     private javax.swing.JLabel fondo;
     private javax.swing.JButton guardarButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -204,7 +231,7 @@ public class Respaldo extends javax.swing.JPanel {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField nombreCampo;
     private javax.swing.JButton restaurarButton;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
