@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,6 +26,11 @@ public class ProveedoresBD {
     private String telefono;
     private String empresa;
     private String descrip;
+    private char sexo;
+    private String fecha;
+    ResultSet resultado;
+    Statement sql;
+    Connection con;
 
     public String getDescrip() {
         return descrip;
@@ -33,11 +39,6 @@ public class ProveedoresBD {
     public void setDescrip(String descrip) {
         this.descrip = descrip;
     }
-    private char sexo;
-    private String fecha;
-    ResultSet resultado;
-    Statement sql;
-    Connection con;
 
     public String getId_proveedor() {
         return id_proveedor;
@@ -113,7 +114,7 @@ public class ProveedoresBD {
     public void editarProveedor() throws SQLException {
         sql = Conexion.conexionbd().createStatement();
         resultado = sql.executeQuery("select id_emp from empresas where emp_nomb like '" + this.getEmpresa() + "'");
-        sql.executeUpdate("update Proveedores set id_emp = '" + resultado.getObject("id_emp") + "', prv_nomb = '" + this.getNombre() + "', prv_appat = '" + this.getApellido_p() + "', prv_apmat = '" + this.getApellido_m() + "', prv_bdate = '" + this.getFecha() + "', prv_sex = '" + this.getSexo() + "', prv_tel = '" + this.getTelefono() + "' where id_prv like '" + this.getId_proveedor() + "'");
+        sql.executeUpdate("update Proveedores set id_emp = '" + resultado.getString("id_emp") + "', prv_nomb = '" + this.getNombre() + "', prv_appat = '" + this.getApellido_p() + "', prv_apmat = '" + this.getApellido_m() + "', prv_bdate = '" + this.getFecha() + "', prv_sex = '" + this.getSexo() + "', prv_tel = '" + this.getTelefono() + "' where id_prv like '" + this.getId_proveedor() + "'");
         sql.close();
     }
 
@@ -155,7 +156,7 @@ public class ProveedoresBD {
 
     public void consultaIndvi(String cad, JTable table) throws SQLException {
         sql = Conexion.conexionbd().createStatement();
-        resultado = sql.executeQuery("select id_prv,prv_nomb,prv_appat,prv_apmat,prv_sex,prv_tel,prv_bdate,emp_nomb from Proveedores,empresas where prv_nomb like '" + cad + "' and empresas.id_emp=proveedores.id_emp");
+        resultado = sql.executeQuery("select id_prv,prv_nomb,prv_appat,prv_apmat,prv_sex,prv_tel,prv_bdate,emp_nomb from Proveedores,empresas where prv_nomb like '"+cad+"%'" +" and empresas.id_emp=proveedores.id_emp");
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.addColumn("ID");
         dtm.addColumn("Nombre");
@@ -176,12 +177,16 @@ public class ProveedoresBD {
     }
 
     public void agregarEmpresa() throws SQLException {
-        con = Conexion.conexionbd();
-        con.setAutoCommit(false);
-        sql = con.createStatement();
-        sql.execute("insert into Empresas values('"+(int)(Math.random()*50+5)+"' "+this.getEmpresa()+"' "+this.getDescrip()+"')");
-        con.commit();
-        sql.close();
-        con.close();
+        sql = Conexion.conexionbd().createStatement();
+        sql.executeUpdate("insert into Empresas values('" + (int) (Math.random() * 50 + 5) + "', '" + this.getEmpresa() + "', '" + this.getDescrip() + "')");
+    }
+    public ArrayList<String> obtenerEmpresas()throws SQLException{
+        sql = Conexion.conexionbd().createStatement();
+        ArrayList<String> arr = new ArrayList<String>();
+        resultado = sql.executeQuery("select emp_nomb from empresas");
+        while (resultado.next()) {            
+            arr.add(resultado.getString("emp_nomb"));
+        }
+        return arr;
     }
 }

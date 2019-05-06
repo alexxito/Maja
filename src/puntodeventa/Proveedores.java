@@ -8,21 +8,25 @@ package puntodeventa;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author 
+ * @author
  */
 public class Proveedores extends javax.swing.JPanel {
 
     /**
      * Creates new form Proveedores
      */
+    private ArrayList<String> arr = new ArrayList<String>();
     Calendario cal = new Calendario(); //objeto de la clase Calendario
     ProveedoresBD pb = new ProveedoresBD(); //objeto de la clase que contiene las funciones de agregar,editar,consultar y eliminar
-    
-    public Proveedores() {
+
+    public Proveedores() throws SQLException {
         initComponents();
         pb.consultarProveedor(jTable1);
         TelefonoProveedor.addKeyListener(new KeyAdapter() {
@@ -43,15 +47,14 @@ public class Proveedores extends javax.swing.JPanel {
                 }
             }
         });
-        nombreProveedor.setEnabled(false);
-        ApellidoPaternoProveedor.setEnabled(false);
-        ApellidoMaternoProveedor.setEnabled(false);
-        TelefonoProveedor.setEnabled(false);
-        fechaNacimientoProveedor.setEnabled(false);
-        mf.setEnabled(false);
-        empresasCombo.setEnabled(false);
-        campoNomEmp.setEnabled(false);
-        descripEmpre.setEnabled(false);
+        enableOff();
+        arr = pb.obtenerEmpresas();
+        if (!arr.isEmpty()) {
+            for (int i = 0; i < arr.size(); i++) {
+                empresasCombo.addItem(arr.get(i));
+            }
+        }
+
     }
 
     /**
@@ -111,9 +114,9 @@ public class Proveedores extends javax.swing.JPanel {
                 buscarFocusLost(evt);
             }
         });
-        buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarActionPerformed(evt);
+        buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscarKeyReleased(evt);
             }
         });
 
@@ -168,11 +171,6 @@ public class Proveedores extends javax.swing.JPanel {
         mf.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
         mf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "F", "M" }));
         mf.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        mf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mfActionPerformed(evt);
-            }
-        });
 
         sexo.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
         sexo.setForeground(new java.awt.Color(255, 255, 255));
@@ -263,7 +261,6 @@ public class Proveedores extends javax.swing.JPanel {
         jLabel1.setText("Empresa:");
 
         empresasCombo.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
-        empresasCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Marinela", "Rocolino", "Item 3", "Item 4" }));
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -443,16 +440,6 @@ public class Proveedores extends javax.swing.JPanel {
 
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-        try {
-            pb.consultaIndvi(buscar.getText(), jTable1);
-            if (buscar.getText().equals("")) {
-                pb.consultarProveedor(jTable1);
-            }
-        } catch (SQLException e) {
-        }
-    }//GEN-LAST:event_buscarActionPerformed
-
     private void buscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_buscarFocusGained
         if (buscar.getText().equals("ßuscar....")) {
             buscar.setText("");
@@ -477,45 +464,55 @@ public class Proveedores extends javax.swing.JPanel {
         empresasCombo.setEnabled(true);
     }//GEN-LAST:event_addProveedorActionPerformed
 
-    private void mfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mfActionPerformed
-
     private void GuardarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarProveedorActionPerformed
         int opc = JOptionPane.showConfirmDialog(this, "¿Desea guardar todos los cambios?");
-        pb.setNombre(nombreProveedor.getText());
-        pb.setApellido_p(ApellidoPaternoProveedor.getText());
-        pb.setApellido_m(ApellidoMaternoProveedor.getText());
-        pb.setTelefono(TelefonoProveedor.getText());
-        pb.setEmpresa(empresasCombo.getSelectedItem().toString());
-        pb.setFecha(fechaNacimientoProveedor.getText());
-        pb.setSexo(mf.getSelectedItem().toString().charAt(0));
         try {
             if (jTable1.getSelectedRow() == -1 & campoNomEmp.isEnabled() == false) {
                 if (opc == JOptionPane.YES_OPTION) {
+                    pb.setNombre(nombreProveedor.getText());
+                    pb.setApellido_p(ApellidoPaternoProveedor.getText());
+                    pb.setApellido_m(ApellidoMaternoProveedor.getText());
+                    pb.setTelefono(TelefonoProveedor.getText());
+                    pb.setEmpresa(empresasCombo.getSelectedItem().toString());
+                    pb.setFecha(fechaNacimientoProveedor.getText());
+                    pb.setSexo(mf.getSelectedItem().toString().charAt(0));
                     pb.agregarProveedor();
-                    nombreProveedor.setText("");
-                    ApellidoPaternoProveedor.setText("");
-                    ApellidoMaternoProveedor.setText("");
-                    TelefonoProveedor.setText("");
-                    fechaNacimientoProveedor.setText("");
-                    JOptionPane.showMessageDialog(this, "Cambios guardados con éxito.");
+                    ponerEnBlanco();
+                    enableOff();
+                    JOptionPane.showMessageDialog(this, "Proveedor guardado con éxito.");
                     pb.consultarProveedor(jTable1);
                 } else {
                 }
-            } else if (campoNomEmp.isEnabled() & jTable1.getSelectedRow() == -1) {
+            } else if (campoNomEmp.isEnabled() == true & jTable1.getSelectedRow() == -1) {
                 if (opc == JOptionPane.YES_OPTION) {
                     pb.setEmpresa(campoNomEmp.getText());
                     pb.setDescrip(descripEmpre.getText());
-                    campoNomEmp.setText("");
-                    descripEmpre.setText("");
+                    ponerEnBlanco();
+                    enableOff();
                     pb.agregarEmpresa();
+                    empresasCombo.removeAllItems();
+                    arr = pb.obtenerEmpresas();
+                    for (int i = 0; i < arr.size(); i++) {
+                        empresasCombo.addItem(arr.get(i));
+                    }
+                    JOptionPane.showMessageDialog(this, "Empresa guardada con éxito.");
                 } else {
                 }
-            } else {
+            } else if (jTable1.getSelectedRow() != -1 & campoNomEmp.isEnabled() == false & nombreProveedor.isEnabled() == true) {
                 if (opc == JOptionPane.YES_OPTION) {
+                    pb.setNombre(nombreProveedor.getText());
+                    pb.setApellido_p(ApellidoPaternoProveedor.getText());
+                    pb.setApellido_m(ApellidoMaternoProveedor.getText());
+                    pb.setTelefono(TelefonoProveedor.getText());
+                    pb.setEmpresa(empresasCombo.getSelectedItem().toString());
+                    pb.setFecha(fechaNacimientoProveedor.getText());
+                    pb.setSexo(mf.getSelectedItem().toString().charAt(0));
                     pb.editarProveedor();
+                    ponerEnBlanco();
+                    enableOff();
+                    JOptionPane.showMessageDialog(this, "Cambios guardados con éxito.");
                     pb.consultarProveedor(jTable1);
+                } else {
                 }
             }
         } catch (SQLException e) {
@@ -534,11 +531,8 @@ public class Proveedores extends javax.swing.JPanel {
             }
         } catch (SQLException e) {
         }
-        campoNomEmp.setText("");
-        TelefonoProveedor.setText("");
-        ApellidoPaternoProveedor.setText("");
-        ApellidoMaternoProveedor.setText("");
-        fechaNacimientoProveedor.setText("");
+        ponerEnBlanco();
+        enableOff();
     }//GEN-LAST:event_eliminarProveedorActionPerformed
 
     private void calendarioProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calendarioProveedorMouseClicked
@@ -579,25 +573,54 @@ public class Proveedores extends javax.swing.JPanel {
         fechaNacimientoProveedor.setText(jTable1.getValueAt(row, 6).toString());
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void buscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarKeyReleased
+        try {
+            pb.consultaIndvi(buscar.getText(), jTable1);
+        } catch (SQLException ex) {
+            Logger.getLogger(Proveedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_buscarKeyReleased
+    public static void enableOff() {
+        nombreProveedor.setEnabled(false);
+        ApellidoMaternoProveedor.setEnabled(false);
+        ApellidoPaternoProveedor.setEnabled(false);
+        fechaNacimientoProveedor.setEnabled(false);
+        TelefonoProveedor.setEnabled(false);
+        mf.setEnabled(false);
+        empresasCombo.setEnabled(false);
+        campoNomEmp.setEnabled(false);
+        descripEmpre.setEnabled(false);
+    }
+
+    public static void ponerEnBlanco() {
+        nombreProveedor.setText("");
+        ApellidoPaternoProveedor.setText("");
+        ApellidoMaternoProveedor.setText("");
+        TelefonoProveedor.setText("");
+        fechaNacimientoProveedor.setText("");
+
+        campoNomEmp.setText("");
+        descripEmpre.setText("");
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField ApellidoMaternoProveedor;
-    private javax.swing.JTextField ApellidoPaternoProveedor;
+    private static javax.swing.JTextField ApellidoMaternoProveedor;
+    private static javax.swing.JTextField ApellidoPaternoProveedor;
     private javax.swing.JButton GuardarProveedor;
-    private javax.swing.JTextField TelefonoProveedor;
+    private static javax.swing.JTextField TelefonoProveedor;
     private javax.swing.JButton addProveedor;
     private javax.swing.JButton agregarEmpButton;
     private javax.swing.JLabel apellidoM;
     private javax.swing.JLabel apellidoP;
     private javax.swing.JTextField buscar;
     private javax.swing.JLabel calendarioProveedor;
-    private javax.swing.JTextField campoNomEmp;
-    private javax.swing.JTextArea descripEmpre;
+    private static javax.swing.JTextField campoNomEmp;
+    private static javax.swing.JTextArea descripEmpre;
     private javax.swing.JButton editarProveedor;
     private javax.swing.JButton eliminarProveedor;
-    private javax.swing.JComboBox<String> empresasCombo;
+    private static javax.swing.JComboBox<String> empresasCombo;
     private javax.swing.JLabel etqnombre;
     private javax.swing.JLabel fechaNac;
-    private javax.swing.JTextField fechaNacimientoProveedor;
+    private static javax.swing.JTextField fechaNacimientoProveedor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -606,8 +629,8 @@ public class Proveedores extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lupa;
-    private javax.swing.JComboBox<String> mf;
-    private javax.swing.JTextField nombreProveedor;
+    private static javax.swing.JComboBox<String> mf;
+    private static javax.swing.JTextField nombreProveedor;
     private javax.swing.JLabel sexo;
     private javax.swing.JLabel tele;
     private javax.swing.JLabel titulo;

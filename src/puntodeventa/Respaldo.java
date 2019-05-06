@@ -5,7 +5,13 @@
  */
 package puntodeventa;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 import static puntodeventa.Principal.contenedor;
 
 /**
@@ -17,7 +23,7 @@ public class Respaldo extends javax.swing.JPanel {
     /**
      * Creates new form Respaldo
      */
-    RespaldoBD rbd = new RespaldoBD();
+    RespaldoBD2 rbd = new RespaldoBD2();
 
     public Respaldo() {
         initComponents();
@@ -77,11 +83,6 @@ public class Respaldo extends javax.swing.JPanel {
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/base_de_datos.png"))); // NOI18N
 
         direccionTextField.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
-        direccionTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                direccionTextFieldActionPerformed(evt);
-            }
-        });
 
         examinarButton.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
         examinarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/respaldo2.png"))); // NOI18N
@@ -137,10 +138,6 @@ public class Respaldo extends javax.swing.JPanel {
                 .addGap(41, 41, 41)
                 .addComponent(fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(83, 83, 83))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(204, 204, 204)
-                .addComponent(titulo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 121, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -155,6 +152,10 @@ public class Respaldo extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(examinarButton)
                 .addGap(295, 295, 295))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(204, 204, 204)
+                .addComponent(titulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,21 +184,39 @@ public class Respaldo extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void direccionTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_direccionTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_direccionTextFieldActionPerformed
-
     private void examinarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_examinarButtonActionPerformed
         // TODO add your handling code here:
-        Arbolo ar = new Arbolo();
-        ar.setVisible(true);
+        //Arbolo ar = new Arbolo();
+        //ar.setVisible(true);
+        //if (ar.isActive() == false) {
+        //direccionTextField.setText(ar.getAbsolutepath());
+        //}
+        JFileChooser selector = new JFileChooser();
+        selector.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        int resultado = selector.showOpenDialog(this);
+        File archivo = selector.getSelectedFile();
+        if ((archivo == null) || (archivo.getName().equals(""))) {
+            JOptionPane.showMessageDialog(this, "Nombre de archivo inválido", "Nombre de archivo inválido", JOptionPane.ERROR_MESSAGE);
+        } // fin de if
+        try {
+            direccionTextField.setText(archivo.getAbsolutePath());
+        } catch (NullPointerException e) {
+            System.err.println(e.getMessage());
+        }
+
     }//GEN-LAST:event_examinarButtonActionPerformed
 
     private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButtonActionPerformed
         int opc = JOptionPane.showConfirmDialog(this, "¿Desea crear un respaldo?");
         if (opc == JOptionPane.YES_OPTION) {
-            rbd.ejecutarComando("maja", "123456", "backup", direccionTextField.getText(), nombreCampo.getText());
-            JOptionPane.showMessageDialog(this, "Respaldo creado con éxito.");
+            try {
+                rbd.respaldar(direccionTextField.getText(), nombreCampo.getText());              
+                JOptionPane.showMessageDialog(this, "Respaldo creado con éxito.");
+                direccionTextField.setText("");
+                nombreCampo.setText("");
+            } catch (IOException | InterruptedException ex) {
+                Logger.getLogger(Respaldo.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
 
         }
@@ -206,7 +225,12 @@ public class Respaldo extends javax.swing.JPanel {
     private void restaurarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurarButtonActionPerformed
         int opc = JOptionPane.showConfirmDialog(this, "¿Desea restaurar el respaldo seleccionado?");
         if (opc == JOptionPane.YES_OPTION) {
-            rbd.ejecutarComando("maja", "123456", "restore", direccionTextField.getText(), nombreCampo.getText());
+            try {
+                rbd.restaurar(direccionTextField.getText());
+            } catch (IOException | InterruptedException ex) {
+                Logger.getLogger(Respaldo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            direccionTextField.setText("");
             JOptionPane.showMessageDialog(this, "Restauración exitosa..");
         } else {
 

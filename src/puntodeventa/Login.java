@@ -7,6 +7,8 @@ package puntodeventa;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +35,15 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((int) (dim.width / 2 - this.getSize().getWidth() / 2), (int) (dim.height / 2 - this.getSize().getWidth() / 2));
+        campoNombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (campoNombre.getText().length() > 30) {
+                    e.consume(); //30 caracteres
+                    getToolkit().beep();
+                }
+            }
+        });
     }
 
     /**
@@ -222,20 +233,17 @@ public class Login extends javax.swing.JFrame {
     private void botonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarActionPerformed
         // TODO add your handling code here:
         try {
-            pass = campoPassword.getText();
+            pass = new String(campoPassword.getPassword());
             lbd.setNombre(campoNombre.getText());
             cifer = cry.cifra(pass);
-            passw = Base64.getEncoder().encodeToString(cifer);
-            System.out.println(passw);
-            lbd.setPassword(passw);
+            passw = Base64.getEncoder().encodeToString(cifer); //codificar los bytes a cadena con la contraseña encriptada
+            lbd.setPassword(passw); //establezco la contraseña
             existe = lbd.existeUsuario();
-            if (existe) {
+            if (existe) { //si la consulta encuentra al usuario entonces abre el panel principal
                 pl.setVisible(true);
                 setVisible(false);
-                System.out.println("Contraseña bien");
             } else {
-                System.out.println("Contraseña mal");
-                JOptionPane.showMessageDialog(null, "Usuario no existe", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Usuario no existe", "Error", JOptionPane.ERROR_MESSAGE); //en caso contrario indicarle al usuario el error
             }
         } catch (Exception ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
@@ -245,7 +253,6 @@ public class Login extends javax.swing.JFrame {
     private void campoNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNombreFocusGained
         // TODO add your handling code here:
         campoNombre.setText("");
-
     }//GEN-LAST:event_campoNombreFocusGained
 
     private void campoPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoPasswordFocusGained

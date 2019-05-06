@@ -47,35 +47,15 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
+                          <EmptySpace min="172" pref="172" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="172" pref="172" max="-2" attributes="0"/>
-                                  <Component id="NameLabel" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="172" pref="172" max="-2" attributes="0"/>
-                                  <Component id="campoNombre" min="-2" pref="157" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="172" pref="172" max="-2" attributes="0"/>
-                                  <Component id="jSeparator1" min="-2" pref="157" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="172" pref="172" max="-2" attributes="0"/>
-                                  <Component id="PassLabel" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="172" pref="172" max="-2" attributes="0"/>
-                                  <Component id="campoPassword" min="-2" pref="157" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="172" pref="172" max="-2" attributes="0"/>
-                                  <Component id="jSeparator2" min="-2" pref="157" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="172" pref="172" max="-2" attributes="0"/>
-                                  <Component id="botonIngresar" min="-2" pref="119" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="NameLabel" min="-2" max="-2" attributes="0"/>
+                              <Component id="campoNombre" min="-2" pref="157" max="-2" attributes="0"/>
+                              <Component id="jSeparator1" min="-2" pref="157" max="-2" attributes="0"/>
+                              <Component id="PassLabel" min="-2" max="-2" attributes="0"/>
+                              <Component id="campoPassword" min="-2" pref="157" max="-2" attributes="0"/>
+                              <Component id="jSeparator2" min="-2" pref="157" max="-2" attributes="0"/>
+                              <Component id="botonIngresar" min="-2" pref="119" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="127" max="32767" attributes="0"/>
                       </Group>

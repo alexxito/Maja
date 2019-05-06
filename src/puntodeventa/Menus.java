@@ -5,6 +5,9 @@
  */
 package puntodeventa;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static puntodeventa.Principal.contenedor;
 
 /**
@@ -12,10 +15,10 @@ import static puntodeventa.Principal.contenedor;
  * @author Gamaliel Bernal
  */
 public class Menus extends javax.swing.JPanel {
-    
+
     public Menus() {
         initComponents();
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -254,11 +257,16 @@ public class Menus extends javax.swing.JPanel {
     }//GEN-LAST:event_usuariosMouseClicked
 
     private void proveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_proveedoresMouseClicked
-        Proveedores c = new Proveedores();
-        contenedor.removeAll();
-        contenedor.add(c);
-        contenedor.revalidate();
-        contenedor.repaint();
+        try {
+            Proveedores c = new Proveedores();
+            contenedor.removeAll();
+            contenedor.add(c);
+            contenedor.revalidate();
+            contenedor.repaint();
+        } catch (SQLException ex) {
+            Logger.getLogger(Menus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_proveedoresMouseClicked
 
     private void respaldoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_respaldoMouseClicked
