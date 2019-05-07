@@ -13,6 +13,7 @@ import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -27,18 +28,19 @@ public class Login extends javax.swing.JFrame {
     LoginBD lbd = new LoginBD();
     boolean existe;
     Principal pl = new Principal();
-    String pass;
-    String passw;
-    byte[] cifer;
+    private String pass;
+    private String passw;
+    private byte[] cifer;
 
     public Login() {
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((int) (dim.width / 2 - this.getSize().getWidth() / 2), (int) (dim.height / 2 - this.getSize().getWidth() / 2));
-        campoNombre.addKeyListener(new KeyAdapter() {
+        campoPassword.addKeyListener(new KeyAdapter() {  
+            String password = new String(campoPassword.getPassword());
             @Override
             public void keyTyped(KeyEvent e) {
-                if (campoNombre.getText().length() > 30) {
+                if (password.length() > 30) {
                     e.consume(); //30 caracteres
                     getToolkit().beep();
                 }
@@ -91,10 +93,8 @@ public class Login extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoNombreFocusGained(evt);
             }
-        });
-        campoNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoNombreActionPerformed(evt);
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNombreFocusLost(evt);
             }
         });
 
@@ -112,15 +112,11 @@ public class Login extends javax.swing.JFrame {
                 campoPasswordFocusGained(evt);
             }
         });
-        campoPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoPasswordActionPerformed(evt);
-            }
-        });
 
         botonIngresar.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
         botonIngresar.setForeground(new java.awt.Color(0, 0, 0));
         botonIngresar.setText("Ingresar");
+        botonIngresar.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         botonIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonIngresarActionPerformed(evt);
@@ -145,28 +141,15 @@ public class Login extends javax.swing.JFrame {
             .addGroup(LoginPanelLayout.createSequentialGroup()
                 .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(LoginPanelLayout.createSequentialGroup()
+                        .addGap(172, 172, 172)
                         .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(LoginPanelLayout.createSequentialGroup()
-                                .addGap(172, 172, 172)
-                                .addComponent(NameLabel))
-                            .addGroup(LoginPanelLayout.createSequentialGroup()
-                                .addGap(172, 172, 172)
-                                .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(LoginPanelLayout.createSequentialGroup()
-                                .addGap(172, 172, 172)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(LoginPanelLayout.createSequentialGroup()
-                                .addGap(172, 172, 172)
-                                .addComponent(PassLabel))
-                            .addGroup(LoginPanelLayout.createSequentialGroup()
-                                .addGap(172, 172, 172)
-                                .addComponent(campoPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(LoginPanelLayout.createSequentialGroup()
-                                .addGap(172, 172, 172)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(LoginPanelLayout.createSequentialGroup()
-                                .addGap(172, 172, 172)
-                                .addComponent(botonIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(NameLabel)
+                            .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PassLabel)
+                            .addComponent(campoPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 127, Short.MAX_VALUE))
                     .addGroup(LoginPanelLayout.createSequentialGroup()
                         .addGap(180, 180, 180)
@@ -205,7 +188,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botonIngresar)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -222,29 +205,21 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void campoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoNombreActionPerformed
-
-    private void campoPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPasswordActionPerformed
-        // TODO add your handling code he
-    }//GEN-LAST:event_campoPasswordActionPerformed
-
     private void botonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarActionPerformed
         // TODO add your handling code here:
         try {
-            pass = new String(campoPassword.getPassword());
-            lbd.setNombre(campoNombre.getText());
-            cifer = cry.cifra(pass);
+            pass = new String(campoPassword.getPassword());//convertir el arreglo de caracteres a cadena
+            lbd.setNombre(campoNombre.getText());//paso el nombre de usuario a la bd 
+            cifer = cry.cifra(pass);//encripto la contraseña
             passw = Base64.getEncoder().encodeToString(cifer); //codificar los bytes a cadena con la contraseña encriptada
-            lbd.setPassword(passw); //establezco la contraseña
-            existe = lbd.existeUsuario();
+            lbd.setPassword(passw); //paso la contraseña encriptada a bd
+            existe = lbd.existeUsuario(); //hago consulta
             if (existe) { //si la consulta encuentra al usuario entonces abre el panel principal
                 pl.setVisible(true);
                 setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario no existe", "Error", JOptionPane.ERROR_MESSAGE); //en caso contrario indicarle al usuario el error
-            }
+            }//de lo contrario informa que el usuario no existe
         } catch (Exception ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -265,6 +240,13 @@ public class Login extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_cerrarLabelMouseClicked
 
+    private void campoNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNombreFocusLost
+        // TODO add your handling code here:
+        if (!Pattern.matches("^[a-zA-Z]*$", campoNombre.getText())) {
+            JOptionPane.showMessageDialog(this, "El nombre de usuario solo debe contener letras","Error",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_campoNombreFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -276,7 +258,7 @@ public class Login extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

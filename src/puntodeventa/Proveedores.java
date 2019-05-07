@@ -22,7 +22,7 @@ public class Proveedores extends javax.swing.JPanel {
     /**
      * Creates new form Proveedores
      */
-    private ArrayList<String> arr = new ArrayList<String>();
+    private ArrayList<String> arr = new ArrayList();
     Calendario cal = new Calendario(); //objeto de la clase Calendario
     ProveedoresBD pb = new ProveedoresBD(); //objeto de la clase que contiene las funciones de agregar,editar,consultar y eliminar
 
@@ -120,7 +120,7 @@ public class Proveedores extends javax.swing.JPanel {
             }
         });
 
-        addProveedor.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
+        addProveedor.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
         addProveedor.setForeground(new java.awt.Color(0, 0, 0));
         addProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/añadir.png"))); // NOI18N
         addProveedor.setText(" Agregar Proveedor");
@@ -134,7 +134,7 @@ public class Proveedores extends javax.swing.JPanel {
         titulo.setForeground(new java.awt.Color(255, 255, 255));
         titulo.setText("Proveedores");
 
-        editarProveedor.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
+        editarProveedor.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
         editarProveedor.setForeground(new java.awt.Color(0, 0, 0));
         editarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/editar.png"))); // NOI18N
         editarProveedor.setText("Editar Proveedor");
@@ -146,25 +146,25 @@ public class Proveedores extends javax.swing.JPanel {
             }
         });
 
-        etqnombre.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
+        etqnombre.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
         etqnombre.setForeground(new java.awt.Color(255, 255, 255));
         etqnombre.setText("Nombre: ");
 
         nombreProveedor.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
 
-        apellidoP.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
+        apellidoP.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
         apellidoP.setForeground(new java.awt.Color(255, 255, 255));
         apellidoP.setText("Apellido P: ");
 
         ApellidoPaternoProveedor.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
 
-        apellidoM.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
+        apellidoM.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
         apellidoM.setForeground(new java.awt.Color(255, 255, 255));
         apellidoM.setText("Apellido M: ");
 
         ApellidoMaternoProveedor.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
 
-        tele.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
+        tele.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
         tele.setForeground(new java.awt.Color(255, 255, 255));
         tele.setText("Teléfono:");
 
@@ -172,19 +172,19 @@ public class Proveedores extends javax.swing.JPanel {
         mf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "F", "M" }));
         mf.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        sexo.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
+        sexo.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
         sexo.setForeground(new java.awt.Color(255, 255, 255));
         sexo.setText("Sexo:");
 
         TelefonoProveedor.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
 
-        fechaNac.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
+        fechaNac.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
         fechaNac.setForeground(new java.awt.Color(255, 255, 255));
         fechaNac.setText("F. Nacimiento:");
 
         fechaNacimientoProveedor.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
 
-        GuardarProveedor.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 19)); // NOI18N
+        GuardarProveedor.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
         GuardarProveedor.setForeground(new java.awt.Color(0, 0, 0));
         GuardarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/guardar.png"))); // NOI18N
         GuardarProveedor.setText("Guardar");
@@ -194,7 +194,7 @@ public class Proveedores extends javax.swing.JPanel {
             }
         });
 
-        eliminarProveedor.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 19)); // NOI18N
+        eliminarProveedor.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
         eliminarProveedor.setForeground(new java.awt.Color(0, 0, 0));
         eliminarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/borrar.png"))); // NOI18N
         eliminarProveedor.setText("Eliminar");
@@ -256,7 +256,7 @@ public class Proveedores extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Empresa:");
 
@@ -264,7 +264,7 @@ public class Proveedores extends javax.swing.JPanel {
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
 
-        agregarEmpButton.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
+        agregarEmpButton.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
         agregarEmpButton.setForeground(new java.awt.Color(0, 0, 0));
         agregarEmpButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/añadir.png"))); // NOI18N
         agregarEmpButton.setText("Agregar Empresa");
@@ -274,13 +274,13 @@ public class Proveedores extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Nombre:");
 
         campoNomEmp.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Descripción:");
 
@@ -296,7 +296,7 @@ public class Proveedores extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(68, 68, 68)
                 .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 395, Short.MAX_VALUE)
                 .addComponent(titulo)
                 .addGap(240, 240, 240))
             .addGroup(layout.createSequentialGroup()
@@ -363,7 +363,7 @@ public class Proveedores extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(402, 402, 402)
                         .addComponent(lupa)))
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {ApellidoMaternoProveedor, ApellidoPaternoProveedor, TelefonoProveedor, fechaNacimientoProveedor, nombreProveedor});
@@ -580,7 +580,7 @@ public class Proveedores extends javax.swing.JPanel {
             Logger.getLogger(Proveedores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buscarKeyReleased
-    public static void enableOff() {
+    private static void enableOff() {
         nombreProveedor.setEnabled(false);
         ApellidoMaternoProveedor.setEnabled(false);
         ApellidoPaternoProveedor.setEnabled(false);
@@ -592,7 +592,7 @@ public class Proveedores extends javax.swing.JPanel {
         descripEmpre.setEnabled(false);
     }
 
-    public static void ponerEnBlanco() {
+    private static void ponerEnBlanco() {
         nombreProveedor.setText("");
         ApellidoPaternoProveedor.setText("");
         ApellidoMaternoProveedor.setText("");
