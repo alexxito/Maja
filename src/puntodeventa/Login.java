@@ -27,7 +27,6 @@ public class Login extends javax.swing.JFrame {
     Crypt cry = new Crypt();
     LoginBD lbd = new LoginBD();
     boolean existe;
-    Principal pl = new Principal();
     private String pass;
     private String passw;
     private byte[] cifer;
@@ -41,6 +40,16 @@ public class Login extends javax.swing.JFrame {
             @Override
             public void keyTyped(KeyEvent e) {
                 if (password.length() > 30) {
+                    e.consume(); //30 caracteres
+                    getToolkit().beep();
+                }
+            }
+        });
+        campoNombre.addKeyListener(new KeyAdapter() {  
+            String nomb = campoNombre.getText();
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (nomb.length() > 30 | !Character.isAlphabetic(e.getKeyChar())) {
                     e.consume(); //30 caracteres
                     getToolkit().beep();
                 }
@@ -92,9 +101,6 @@ public class Login extends javax.swing.JFrame {
         campoNombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoNombreFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoNombreFocusLost(evt);
             }
         });
 
@@ -214,7 +220,10 @@ public class Login extends javax.swing.JFrame {
             passw = Base64.getEncoder().encodeToString(cifer); //codificar los bytes a cadena con la contraseña encriptada
             lbd.setPassword(passw); //paso la contraseña encriptada a bd
             existe = lbd.existeUsuario(); //hago consulta
+            String name = lbd.devuelveUsuario();
             if (existe) { //si la consulta encuentra al usuario entonces abre el panel principal
+                Principal pl = new Principal(name);
+                System.out.println(name);
                 pl.setVisible(true);
                 setVisible(false);
             } else {
@@ -239,13 +248,6 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_cerrarLabelMouseClicked
-
-    private void campoNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNombreFocusLost
-        // TODO add your handling code here:
-        if (!Pattern.matches("^[a-zA-Z]*$", campoNombre.getText())) {
-            JOptionPane.showMessageDialog(this, "El nombre de usuario solo debe contener letras","Error",JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_campoNombreFocusLost
 
     /**
      * @param args the command line arguments

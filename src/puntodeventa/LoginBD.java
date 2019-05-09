@@ -53,6 +53,19 @@ public class LoginBD {
         }
 
         return exite;
-
+    }
+    public String devuelveUsuario(){
+        String SQL = "SELECT usr_nomb from usuarios where usr_nomb like '" + this.getNombre() + "' and pass = '"+this.getPassword()+"'";
+        String user="";
+        try (Connection conn = Conexion.conexionbd();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(SQL)) {
+            while (rs.next()) {
+               user = rs.getString("usr_nomb");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return user;
     }
 }

@@ -26,7 +26,7 @@ public class Proveedores extends javax.swing.JPanel {
     Calendario cal = new Calendario(); //objeto de la clase Calendario
     ProveedoresBD pb = new ProveedoresBD(); //objeto de la clase que contiene las funciones de agregar,editar,consultar y eliminar
 
-    public Proveedores() throws SQLException {
+    public Proveedores(String nombre) throws SQLException {
         initComponents();
         pb.consultarProveedor(jTable1);
         TelefonoProveedor.addKeyListener(new KeyAdapter() {
@@ -47,6 +47,15 @@ public class Proveedores extends javax.swing.JPanel {
                 }
             }
         });
+        buscar.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (!Character.isLetterOrDigit(e.getKeyChar())) {
+                    e.consume();
+                    getToolkit().beep();
+                }
+            }
+        });
         enableOff();
         arr = pb.obtenerEmpresas();
         if (!arr.isEmpty()) {
@@ -54,7 +63,7 @@ public class Proveedores extends javax.swing.JPanel {
                 empresasCombo.addItem(arr.get(i));
             }
         }
-
+        NombreUsuario.setText(nombre);
     }
 
     /**
@@ -97,6 +106,8 @@ public class Proveedores extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         descripEmpre = new javax.swing.JTextArea();
+        NombreUsuario = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(1, 47, 83));
         setPreferredSize(new java.awt.Dimension(1365, 765));
@@ -289,6 +300,12 @@ public class Proveedores extends javax.swing.JPanel {
         descripEmpre.setRows(5);
         jScrollPane2.setViewportView(descripEmpre);
 
+        NombreUsuario.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
+        NombreUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        NombreUsuario.setText("jLabel4");
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/usuario2.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -296,7 +313,11 @@ public class Proveedores extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(68, 68, 68)
                 .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 395, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(NombreUsuario)
+                .addGap(174, 174, 174)
                 .addComponent(titulo)
                 .addGap(240, 240, 240))
             .addGroup(layout.createSequentialGroup()
@@ -363,7 +384,7 @@ public class Proveedores extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(402, 402, 402)
                         .addComponent(lupa)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {ApellidoMaternoProveedor, ApellidoPaternoProveedor, TelefonoProveedor, fechaNacimientoProveedor, nombreProveedor});
@@ -425,8 +446,16 @@ public class Proveedores extends javax.swing.JPanel {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(NombreUsuario)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
@@ -542,25 +571,28 @@ public class Proveedores extends javax.swing.JPanel {
 
     private void agregarEmpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarEmpButtonActionPerformed
         // TODO add your handling code here:
+        enableOff();
         campoNomEmp.setEnabled(true);
         descripEmpre.setEnabled(true);
     }//GEN-LAST:event_agregarEmpButtonActionPerformed
 
     private void editarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarProveedorActionPerformed
         // TODO add your handling code here:
-        nombreProveedor.setEnabled(true);
-        ApellidoPaternoProveedor.setEnabled(true);
-        ApellidoMaternoProveedor.setEnabled(true);
-        mf.setEnabled(true);
-        empresasCombo.setEnabled(true);
-        TelefonoProveedor.setEnabled(true);
-        fechaNacimientoProveedor.setEnabled(true);
+        if (jTable1.getSelectedRow() != -1) {
+            nombreProveedor.setEnabled(true);
+            ApellidoPaternoProveedor.setEnabled(true);
+            ApellidoMaternoProveedor.setEnabled(true);
+            mf.setEnabled(true);
+            empresasCombo.setEnabled(true);
+            TelefonoProveedor.setEnabled(true);
+            fechaNacimientoProveedor.setEnabled(true);
+        }
     }//GEN-LAST:event_editarProveedorActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         int row = jTable1.getSelectedRow();
-        pb.setId_proveedor(jTable1.getValueAt(row, 0).toString());
+        pb.setId_proveedor(Integer.parseInt(jTable1.getValueAt(row, 0).toString()));
         nombreProveedor.setText(jTable1.getValueAt(row, 1).toString());
         ApellidoPaternoProveedor.setText(jTable1.getValueAt(row, 2).toString());
         ApellidoMaternoProveedor.setText(jTable1.getValueAt(row, 3).toString());
@@ -606,6 +638,7 @@ public class Proveedores extends javax.swing.JPanel {
     private static javax.swing.JTextField ApellidoMaternoProveedor;
     private static javax.swing.JTextField ApellidoPaternoProveedor;
     private javax.swing.JButton GuardarProveedor;
+    private javax.swing.JLabel NombreUsuario;
     private static javax.swing.JTextField TelefonoProveedor;
     private javax.swing.JButton addProveedor;
     private javax.swing.JButton agregarEmpButton;
@@ -624,6 +657,7 @@ public class Proveedores extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;

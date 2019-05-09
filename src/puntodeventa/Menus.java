@@ -15,10 +15,18 @@ import static puntodeventa.Principal.contenedor;
  * @author Gamaliel Bernal
  */
 public class Menus extends javax.swing.JPanel {
+    private String nombreUser;
 
-    public Menus() {
+    public String getNombreUser() {
+        return nombreUser;
+    }
+
+    public void setNombreUser(String nombreUser) {
+        this.nombreUser = nombreUser;
+    }
+    public Menus(String name) {
         initComponents();
-
+        this.setNombreUser(name);
     }
 
     @SuppressWarnings("unchecked")
@@ -258,7 +266,7 @@ public class Menus extends javax.swing.JPanel {
 
     private void proveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_proveedoresMouseClicked
         try {
-            Proveedores c = new Proveedores();
+            Proveedores c = new Proveedores(this.getNombreUser());
             contenedor.removeAll();
             contenedor.add(c);
             contenedor.revalidate();
