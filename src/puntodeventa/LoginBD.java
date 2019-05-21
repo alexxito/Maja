@@ -9,6 +9,7 @@ package puntodeventa;
  *
  * @author PC
  */
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,7 +39,7 @@ public class LoginBD {
         this.password = password;
     }
 
-    public boolean existeUsuario() {
+    public boolean existeUsuario() throws IOException {
         boolean exite = false;
         String SQL = "SELECT id_usr from usuarios where usr_nomb like '" + this.getNombre() + "' and pass like '" + this.getPassword() + "'";
 
@@ -54,7 +55,7 @@ public class LoginBD {
 
         return exite;
     }
-    public String devuelveUsuario(){
+    public String devuelveUsuario() throws IOException{
         String SQL = "SELECT usr_nomb from usuarios where usr_nomb like '" + this.getNombre() + "' and pass = '"+this.getPassword()+"'";
         String user="";
         try (Connection conn = Conexion.conexionbd();

@@ -5,6 +5,9 @@
  */
 package puntodeventa;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static puntodeventa.Principal.contenedor;
 
@@ -17,8 +20,12 @@ public class Ventas extends javax.swing.JPanel {
     /**
      * Creates new form Ventas
      */
-    public Ventas() {
+    String nombrre;
+
+    public Ventas(String nombre) {
         initComponents();
+        nombreUsuario.setText(nombre);
+        nombrre = nombre;
     }
 
     /**
@@ -332,11 +339,17 @@ public class Ventas extends javax.swing.JPanel {
     }//GEN-LAST:event_familyVENTAActionPerformed
 
     private void botonDevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDevolucionesActionPerformed
-        Devoluciones c = new Devoluciones();
-        contenedor.removeAll();
-        contenedor.add(c);
-        contenedor.revalidate();
-        contenedor.repaint();
+        Devoluciones c;
+        try {
+            c = new Devoluciones(nombrre);
+            contenedor.removeAll();
+            contenedor.add(c);
+            contenedor.revalidate();
+            contenedor.repaint();
+        } catch (IOException ex) {
+            Logger.getLogger(Ventas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_botonDevolucionesActionPerformed
 
 

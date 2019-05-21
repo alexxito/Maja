@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package puntodeventa;
 
 import java.awt.Dimension;
@@ -13,6 +8,7 @@ import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -35,8 +31,9 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((int) (dim.width / 2 - this.getSize().getWidth() / 2), (int) (dim.height / 2 - this.getSize().getWidth() / 2));
-        campoPassword.addKeyListener(new KeyAdapter() {  
+        campoPassword.addKeyListener(new KeyAdapter() {
             String password = new String(campoPassword.getPassword());
+
             @Override
             public void keyTyped(KeyEvent e) {
                 if (password.length() > 30) {
@@ -45,13 +42,18 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         });
-        campoNombre.addKeyListener(new KeyAdapter() {  
+
+        campoNombre.addKeyListener(new KeyAdapter() {
             String nomb = campoNombre.getText();
+
             @Override
             public void keyTyped(KeyEvent e) {
-                if (nomb.length() > 30 | !Character.isAlphabetic(e.getKeyChar())) {
+                if (nomb.length()>30 | Character.isLetterOrDigit(e.getKeyChar())) {
                     e.consume(); //30 caracteres
                     getToolkit().beep();
+                }
+                else{
+                    
                 }
             }
         });
@@ -223,7 +225,6 @@ public class Login extends javax.swing.JFrame {
             String name = lbd.devuelveUsuario();
             if (existe) { //si la consulta encuentra al usuario entonces abre el panel principal
                 Principal pl = new Principal(name);
-                System.out.println(name);
                 pl.setVisible(true);
                 setVisible(false);
             } else {
@@ -280,6 +281,11 @@ public class Login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new Login().setVisible(true);
         });
+    }
+    public static boolean validaCampoNom(String nombre){
+        Pattern pat = Pattern.compile("^(((?<!^)\\s(?!$)|[-a-zA-Z])*)$");
+        Matcher mat = pat.matcher(nombre);
+        return mat.matches();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

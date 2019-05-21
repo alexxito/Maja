@@ -5,8 +5,8 @@
  */
 package puntodeventa;
 
+import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -107,35 +107,28 @@ public class ProveedoresBD {
         this.fecha = fecha;
     }
 
-    public void agregarProveedor() throws SQLException {
+    public void agregarProveedor() throws SQLException, IOException {
         sql = Conexion.conexionbd().createStatement();
         resultado = sql.executeQuery("select id_emp from empresas where emp_nomb like '" + this.getEmpresa() + "'");
         resultado.next();
         String insercion = "insert into Proveedores values(DEFAULT,"+resultado.getInt("id_emp")+",'" + this.getNombre() + "','" + this.getApellido_p() + "','" + this.getApellido_m() + "','" + this.getFecha() + "','" + this.getSexo() + "','" + this.getTelefono() + "',"+"true)";
-        System.out.println(insercion);
+        //System.out.println(insercion);
         sql.executeUpdate(insercion);
     }
 
-    public void editarProveedor() throws SQLException {
-        String update = "update proveedores set prv_nomb=?, prv_appat=?, prv_apmat=?, prv_bdate=?, prv_sex='M', prv_tel=? where id_prv||''='"+this.getId_proveedor()+"'";
-        System.out.println(update);
-        con = getConnection();
-        pstm = con.prepareStatement(update);
-        pstm.setString(1, this.getNombre());
-        pstm.setString(2, this.getApellido_p());
-        pstm.setString(3, this.getApellido_m());
-        pstm.setString(4, this.getFecha());
-        //pstm.setString(5, this.getSexo()+"".charAt(0) );
-        pstm.setString(6, this.getTelefono());
-        pstm.executeUpdate();
-        /*
-        sql = Conexion.conexionbd().createStatement();
+    public void editarProveedor() throws SQLException, IOException {
+        con = Conexion.conexionbd();
+        con.setAutoCommit(false);
+        sql = con.createStatement();
         resultado = sql.executeQuery("select id_emp from empresas where emp_nomb like '" + this.getEmpresa() + "'");
-        sql.executeUpdate("update Proveedores set id_emp = '" + resultado.getString("id_emp") + "', prv_nomb = '" + this.getNombre() + "', prv_appat = '" + this.getApellido_p() + "', prv_apmat = '" + this.getApellido_m() + "', prv_bdate = '" + this.getFecha() + "', prv_sex = '" + this.getSexo() + "', prv_tel = '" + this.getTelefono() + "' where id_prv like '" + this.getId_proveedor() + "'");
-        sql.close();*/
+        resultado.next();
+        sql.executeUpdate("update Proveedores set id_emp = " + resultado.getInt("id_emp") + ", prv_nomb = '" + this.getNombre() + "', prv_appat = '" + this.getApellido_p() + "', prv_apmat = '" + this.getApellido_m() + "', prv_bdate = '" + this.getFecha() + "', prv_sex = '" + this.getSexo() + "', prv_tel = '" + this.getTelefono() + "' where id_prv = " + this.getId_proveedor());
+        con.commit();
+        sql.close();
+        con.close();
     }
 
-    public void eliminarProveedor() throws SQLException {
+    public void eliminarProveedor() throws SQLException, IOException {
         con = Conexion.conexionbd();
         con.setAutoCommit(false);
         sql = con.createStatement();
@@ -145,7 +138,7 @@ public class ProveedoresBD {
         con.close();
     }
 
-    public void consultarProveedor(JTable Tarb) {
+    public void consultarProveedor(JTable Tarb) throws IOException {
         try {
             sql = Conexion.conexionbd().createStatement();
             resultado = sql.executeQuery("select id_prv,prv_nomb,prv_appat,prv_apmat,prv_sex,prv_tel,prv_bdate,emp_nomb from Proveedores, empresas where proveedores.id_emp = empresas.id_emp and proveedores.Activo=true");
@@ -171,9 +164,9 @@ public class ProveedoresBD {
         }
     }
 
-    public void consultaIndvi(String cad, JTable table) throws SQLException {
+    public void consultaIndvi(String cad, JTable table) throws SQLException, IOException {
         sql = Conexion.conexionbd().createStatement();
-        resultado = sql.executeQuery("select id_prv,prv_nomb,prv_appat,prv_apmat,prv_sex,prv_tel,prv_bdate,emp_nomb from Proveedores,empresas where prv_nomb like '" + cad + "%' and Activo=true");
+        resultado = sql.executeQuery("select id_prv,prv_nomb,prv_appat,prv_apmat,prv_sex,prv_tel,prv_bdate,emp_nomb from Proveedores,empresas where prv_nomb like '" + cad + "%'  and Activo=true and proveedores.id_emp=empresas.id_emp");
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.addColumn("ID");
         dtm.addColumn("Nombre");
@@ -193,30 +186,18 @@ public class ProveedoresBD {
         }
     }
 
-    public void agregarEmpresa() throws SQLException {
+    public void agregarEmpresa() throws SQLException, IOException {
         sql = Conexion.conexionbd().createStatement();
         sql.executeUpdate("insert into Empresas values('" + (int) (Math.random() * 50 + 5) + "', '" + this.getEmpresa() + "', '" + this.getDescrip() + "')");
     }
 
-    public ArrayList<String> obtenerEmpresas() throws SQLException {
+    public ArrayList<String> obtenerEmpresas() throws SQLException, IOException {
         sql = Conexion.conexionbd().createStatement();
-        ArrayList<String> arr = new ArrayList<String>();
+        ArrayList<String> arr = new ArrayList<>();
         resultado = sql.executeQuery("select emp_nomb from empresas");
         while (resultado.next()) {
             arr.add(resultado.getString("emp_nomb"));
         }
         return arr;
-    }
-    public Connection getConnection(){
-        Connection conn = null;
-        try{
-          Class.forName("org.postgresql.Driver");
-          conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:8088/maja","postgres", "123456");
-          System.out.println(conn.isValid(3000) ? "Conexion correcta" : "Conexion fallida");
-          
-        }catch(ClassNotFoundException | SQLException e){
-            System.out.println("Error "+e.getMessage());
-        }
-        return conn;
     }
 }

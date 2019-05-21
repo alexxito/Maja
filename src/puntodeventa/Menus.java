@@ -5,9 +5,11 @@
  */
 package puntodeventa;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import static puntodeventa.Principal.contenedor;
 
 /**
@@ -15,6 +17,7 @@ import static puntodeventa.Principal.contenedor;
  * @author Gamaliel Bernal
  */
 public class Menus extends javax.swing.JPanel {
+
     private String nombreUser;
 
     public String getNombreUser() {
@@ -24,6 +27,7 @@ public class Menus extends javax.swing.JPanel {
     public void setNombreUser(String nombreUser) {
         this.nombreUser = nombreUser;
     }
+
     public Menus(String name) {
         initComponents();
         this.setNombreUser(name);
@@ -233,35 +237,79 @@ public class Menus extends javax.swing.JPanel {
     }//GEN-LAST:event_salirMouseClicked
 
     private void ventasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ventasMouseClicked
-        Ventas c = new Ventas();
+        Ventas c = new Ventas(this.getNombreUser());
         contenedor.removeAll();
         contenedor.add(c);
         contenedor.revalidate();
         contenedor.repaint();
+        ventas.setIcon(new ImageIcon(getClass().getResource("/iconos/ventas_select.png")));
+        compras.setIcon(new ImageIcon(getClass().getResource("/iconos/compras.png")));
+        productos.setIcon(new ImageIcon(getClass().getResource("/iconos/productos.png")));
+        usuarios.setIcon(new ImageIcon(getClass().getResource("/iconos/usuarios.png")));
+        proveedores.setIcon(new ImageIcon(getClass().getResource("/iconos/proveedores.png")));
+        respaldo.setIcon(new ImageIcon(getClass().getResource("/iconos/respaldo.png")));
+        reportes.setIcon(new ImageIcon(getClass().getResource("/iconos/reportes.png")));
     }//GEN-LAST:event_ventasMouseClicked
 
     private void comprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comprasMouseClicked
-        Compras c = new Compras();
-        contenedor.removeAll();
-        contenedor.add(c);
-        contenedor.revalidate();
-        contenedor.repaint();
+        Compras c;
+        try {
+            c = new Compras(this.getNombreUser());
+            contenedor.removeAll();
+            contenedor.add(c);
+            contenedor.revalidate();
+            contenedor.repaint();
+        } catch (SQLException ex) {
+            Logger.getLogger(Menus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Menus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ventas.setIcon(new ImageIcon(getClass().getResource("/iconos/ventas.png")));
+        compras.setIcon(new ImageIcon(getClass().getResource("/iconos/compras_select.png")));
+        productos.setIcon(new ImageIcon(getClass().getResource("/iconos/productos.png")));
+        usuarios.setIcon(new ImageIcon(getClass().getResource("/iconos/usuarios.png")));
+        proveedores.setIcon(new ImageIcon(getClass().getResource("/iconos/proveedores.png")));
+        respaldo.setIcon(new ImageIcon(getClass().getResource("/iconos/respaldo.png")));
+        reportes.setIcon(new ImageIcon(getClass().getResource("/iconos/reportes.png")));
+
     }//GEN-LAST:event_comprasMouseClicked
 
     private void productosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productosMouseClicked
-        Productos c = new Productos();
-        contenedor.removeAll();
-        contenedor.add(c);
-        contenedor.revalidate();
-        contenedor.repaint();
+        Productos c;
+        try {
+            c = new Productos(this.getNombreUser());
+            contenedor.removeAll();
+            contenedor.add(c);
+            contenedor.revalidate();
+            contenedor.repaint();
+            ventas.setIcon(new ImageIcon(getClass().getResource("/iconos/ventas.png")));
+            compras.setIcon(new ImageIcon(getClass().getResource("/iconos/compras.png")));
+            productos.setIcon(new ImageIcon(getClass().getResource("/iconos/productos_select.png")));
+            usuarios.setIcon(new ImageIcon(getClass().getResource("/iconos/usuarios.png")));
+            proveedores.setIcon(new ImageIcon(getClass().getResource("/iconos/proveedores.png")));
+            respaldo.setIcon(new ImageIcon(getClass().getResource("/iconos/respaldo.png")));
+            reportes.setIcon(new ImageIcon(getClass().getResource("/iconos/reportes.png")));
+        } catch (SQLException ex) {
+            Logger.getLogger(Menus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Menus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_productosMouseClicked
 
     private void usuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usuariosMouseClicked
-        Usuarios c = new Usuarios();
+        Usuarios c = new Usuarios(this.getNombreUser());
         contenedor.removeAll();
         contenedor.add(c);
         contenedor.revalidate();
         contenedor.repaint();
+        ventas.setIcon(new ImageIcon(getClass().getResource("/iconos/ventas.png")));
+        compras.setIcon(new ImageIcon(getClass().getResource("/iconos/compras.png")));
+        productos.setIcon(new ImageIcon(getClass().getResource("/iconos/productos.png")));
+        usuarios.setIcon(new ImageIcon(getClass().getResource("/iconos/usuarios_select.png")));
+        proveedores.setIcon(new ImageIcon(getClass().getResource("/iconos/proveedores.png")));
+        respaldo.setIcon(new ImageIcon(getClass().getResource("/iconos/respaldo.png")));
+        reportes.setIcon(new ImageIcon(getClass().getResource("/iconos/reportes.png")));
     }//GEN-LAST:event_usuariosMouseClicked
 
     private void proveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_proveedoresMouseClicked
@@ -273,16 +321,34 @@ public class Menus extends javax.swing.JPanel {
             contenedor.repaint();
         } catch (SQLException ex) {
             Logger.getLogger(Menus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Menus.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        ventas.setIcon(new ImageIcon(getClass().getResource("/iconos/ventas.png")));
+        compras.setIcon(new ImageIcon(getClass().getResource("/iconos/compras.png")));
+        productos.setIcon(new ImageIcon(getClass().getResource("/iconos/productos.png")));
+        usuarios.setIcon(new ImageIcon(getClass().getResource("/iconos/usuarios.png")));
+        proveedores.setIcon(new ImageIcon(getClass().getResource("/iconos/proveedores_select.png")));
+        respaldo.setIcon(new ImageIcon(getClass().getResource("/iconos/respaldo.png")));
+        reportes.setIcon(new ImageIcon(getClass().getResource("/iconos/reportes.png")));
 
     }//GEN-LAST:event_proveedoresMouseClicked
 
     private void respaldoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_respaldoMouseClicked
-        Respaldo c = new Respaldo();
+        Respaldo c = new Respaldo(this.getNombreUser());
         contenedor.removeAll();
         contenedor.add(c);
         contenedor.revalidate();
         contenedor.repaint();
+
+        ventas.setIcon(new ImageIcon(getClass().getResource("/iconos/ventas.png")));
+        compras.setIcon(new ImageIcon(getClass().getResource("/iconos/compras.png")));
+        productos.setIcon(new ImageIcon(getClass().getResource("/iconos/productos.png")));
+        usuarios.setIcon(new ImageIcon(getClass().getResource("/iconos/usuarios.png")));
+        proveedores.setIcon(new ImageIcon(getClass().getResource("/iconos/proveedores.png")));
+        respaldo.setIcon(new ImageIcon(getClass().getResource("/iconos/respaldo_select.png")));
+        reportes.setIcon(new ImageIcon(getClass().getResource("/iconos/reportes.png")));
     }//GEN-LAST:event_respaldoMouseClicked
 
     private void reportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportesMouseClicked
@@ -291,6 +357,14 @@ public class Menus extends javax.swing.JPanel {
         contenedor.add(c);
         contenedor.revalidate();
         contenedor.repaint();
+
+        ventas.setIcon(new ImageIcon(getClass().getResource("/iconos/ventas.png")));
+        compras.setIcon(new ImageIcon(getClass().getResource("/iconos/compras.png")));
+        productos.setIcon(new ImageIcon(getClass().getResource("/iconos/productos.png")));
+        usuarios.setIcon(new ImageIcon(getClass().getResource("/iconos/usuarios.png")));
+        proveedores.setIcon(new ImageIcon(getClass().getResource("/iconos/proveedores.png")));
+        respaldo.setIcon(new ImageIcon(getClass().getResource("/iconos/respaldo.png")));
+        reportes.setIcon(new ImageIcon(getClass().getResource("/iconos/reportes_select.png")));
     }//GEN-LAST:event_reportesMouseClicked
 
 

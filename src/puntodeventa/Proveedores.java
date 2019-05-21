@@ -7,10 +7,14 @@ package puntodeventa;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,10 +29,11 @@ public class Proveedores extends javax.swing.JPanel {
     private ArrayList<String> arr = new ArrayList();
     Calendario cal = new Calendario(); //objeto de la clase Calendario
     ProveedoresBD pb = new ProveedoresBD(); //objeto de la clase que contiene las funciones de agregar,editar,consultar y eliminar
-
-    public Proveedores(String nombre) throws SQLException {
+    int contador = 0;
+    public Proveedores(String nombre) throws SQLException, IOException {
         initComponents();
-        pb.consultarProveedor(jTable1);
+        pb.consultarProveedor(jTable1); //Consulta general inicial
+
         TelefonoProveedor.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -50,7 +55,7 @@ public class Proveedores extends javax.swing.JPanel {
         buscar.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (!Character.isLetterOrDigit(e.getKeyChar())) {
+                if (!Character.isLetter(e.getKeyChar())) { //solo se pueden ingresar numeros o letras
                     e.consume();
                     getToolkit().beep();
                 }
@@ -64,6 +69,34 @@ public class Proveedores extends javax.swing.JPanel {
             }
         }
         NombreUsuario.setText(nombre);
+        
+        nombreProveedor.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (nombreProveedor.getText().length() >= 15 | !Character.isAlphabetic(e.getKeyChar())) {
+                    e.consume();
+                    getToolkit().beep();
+                }
+            }
+        });
+        ApellidoPaternoProveedor.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (ApellidoPaternoProveedor.getText().length() >= 15 | !Character.isAlphabetic(e.getKeyChar())) {
+                    e.consume();
+                    getToolkit().beep();
+                }
+            }
+        });
+        ApellidoMaternoProveedor.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (ApellidoMaternoProveedor.getText().length() >= 15 | !Character.isAlphabetic(e.getKeyChar())) {
+                    e.consume();
+                    getToolkit().beep();
+                }
+            }
+        });
     }
 
     /**
@@ -498,9 +531,9 @@ public class Proveedores extends javax.swing.JPanel {
         try {
             if (jTable1.getSelectedRow() == -1 & campoNomEmp.isEnabled() == false) {
                 if (opc == JOptionPane.YES_OPTION) {
-                    pb.setNombre(nombreProveedor.getText());
-                    pb.setApellido_p(ApellidoPaternoProveedor.getText());
-                    pb.setApellido_m(ApellidoMaternoProveedor.getText());
+                    pb.setNombre(nombreProveedor.getText().substring(0, 1).toUpperCase() + nombreProveedor.getText().substring(1));
+                    pb.setApellido_p(ApellidoPaternoProveedor.getText().substring(0, 1).toUpperCase() + ApellidoPaternoProveedor.getText().substring(1));
+                    pb.setApellido_m(ApellidoMaternoProveedor.getText().substring(0, 1).toUpperCase() + ApellidoMaternoProveedor.getText().substring(1));
                     pb.setTelefono(TelefonoProveedor.getText());
                     pb.setEmpresa(empresasCombo.getSelectedItem().toString());
                     pb.setFecha(fechaNacimientoProveedor.getText());
@@ -545,6 +578,8 @@ public class Proveedores extends javax.swing.JPanel {
                 }
             }
         } catch (SQLException e) {
+        } catch (IOException ex) {
+            Logger.getLogger(Proveedores.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_GuardarProveedorActionPerformed
@@ -553,12 +588,14 @@ public class Proveedores extends javax.swing.JPanel {
         int opc = JOptionPane.showConfirmDialog(this, "¿Desea eliminar al proveedor?");
         try {
             if (opc == JOptionPane.YES_OPTION) {
-                pb.eliminarProveedor();
+                pb.eliminarProveedor(); //ponen en estatus inactivo al proveedor
                 pb.consultarProveedor(jTable1);
                 JOptionPane.showMessageDialog(this, "Proveedor borrado con éxito.");
             } else {
             }
         } catch (SQLException e) {
+        } catch (IOException ex) {
+            Logger.getLogger(Proveedores.class.getName()).log(Level.SEVERE, null, ex);
         }
         ponerEnBlanco();
         enableOff();
@@ -566,7 +603,22 @@ public class Proveedores extends javax.swing.JPanel {
 
     private void calendarioProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calendarioProveedorMouseClicked
         // TODO add your handling code here:
+        String fechaAyuda;
         cal.setVisible(true);
+        fechaNacimientoProveedor.setText(cal.fecha + "");
+        if (cal.fecha == null) {
+            Calendar date = Calendar.getInstance();
+            SimpleDateFormat dateformatter = new SimpleDateFormat("dd-MM-yyyy");
+            fechaAyuda = dateformatter.format(date.getTime());
+            fechaNacimientoProveedor.setText(fechaAyuda);
+        }
+        contador++;
+        calendarioProveedor.setIcon(new ImageIcon(getClass().getResource("/iconos/caducidad.png")));
+        if (contador == 2) {
+            cal.setVisible(false);
+            contador = 0;
+            calendarioProveedor.setIcon(new ImageIcon(getClass().getResource("/iconos/calendario.png")));
+        }
     }//GEN-LAST:event_calendarioProveedorMouseClicked
 
     private void agregarEmpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarEmpButtonActionPerformed
@@ -609,6 +661,8 @@ public class Proveedores extends javax.swing.JPanel {
         try {
             pb.consultaIndvi(buscar.getText(), jTable1);
         } catch (SQLException ex) {
+            Logger.getLogger(Proveedores.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(Proveedores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buscarKeyReleased

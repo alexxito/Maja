@@ -24,8 +24,9 @@ public class Respaldo extends javax.swing.JPanel {
      */
     RespaldoBD2 rbd = new RespaldoBD2();
 
-    public Respaldo() {
+    public Respaldo(String name) {
         initComponents();
+        nombreUsuario.setText(name);
     }
 
     /**
@@ -56,6 +57,8 @@ public class Respaldo extends javax.swing.JPanel {
         titulo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        nombreUsuario = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -125,6 +128,11 @@ public class Respaldo extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Nombre de archivo:");
 
+        nombreUsuario.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
+        nombreUsuario.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/usuario2.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,8 +160,12 @@ public class Respaldo extends javax.swing.JPanel {
                 .addComponent(examinarButton)
                 .addGap(295, 295, 295))
             .addGroup(layout.createSequentialGroup()
-                .addGap(204, 204, 204)
-                .addComponent(titulo)
+                .addGap(145, 145, 145)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nombreUsuario)
+                    .addComponent(titulo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -161,7 +173,13 @@ public class Respaldo extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addComponent(titulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                .addGap(56, 56, 56)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(nombreUsuario)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(examinarButton)
                     .addComponent(direccionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -179,7 +197,7 @@ public class Respaldo extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(guardarButton)
                             .addComponent(restaurarButton))))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -244,6 +262,7 @@ public class Respaldo extends javax.swing.JPanel {
     private javax.swing.JButton guardarButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -255,6 +274,7 @@ public class Respaldo extends javax.swing.JPanel {
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JTextField nombreCampo;
+    private javax.swing.JLabel nombreUsuario;
     private javax.swing.JButton restaurarButton;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables

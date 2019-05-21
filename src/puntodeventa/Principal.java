@@ -20,6 +20,7 @@ public class Principal extends javax.swing.JFrame implements ActionListener{
 
     
     public Principal(String nombre) {
+        
         Menus f = new Menus(nombre);
         System.out.println(nombre);
         initComponents();
